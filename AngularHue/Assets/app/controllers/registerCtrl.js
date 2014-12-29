@@ -1,5 +1,7 @@
 ﻿angular.module('register', ['ngProgress'])
     .controller('registerCtrl', ['$scope', '$http', 'ngProgress', function ($scope, $http, ngProgress) {
+        ngProgress.start();
+
         $scope.register = function()
         {
             var params = {
@@ -29,4 +31,6 @@
 
         $scope.showAlert = false;
         $scope.showSuccess = false;
+
+        ngProgress.complete();
     }]);

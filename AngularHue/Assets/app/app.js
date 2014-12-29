@@ -4,6 +4,7 @@
     'home',
     'signIn',
     'register',
+    'ngMaterial',
     'ngProgress',
     'todoManager'
 ]);
@@ -78,7 +79,8 @@ app.run(['$http', '$cookies', '$cookieStore', function ($http, $cookies, $cookie
 //Get username on each page
 //Get updated token on page change.
 //Logout available on each page.
-app.run(['$rootScope', '$http', '$cookies', '$cookieStore', 'ngProgress', function ($rootScope, $http, $cookies, $cookieStore, ngProgress) {
+app.run(['$rootScope', '$http', '$cookies', '$cookieStore', 'ngProgress',
+    function ($rootScope, $http, $cookies, $cookieStore, ngProgress) {
 
     $rootScope.logout = function () {
         

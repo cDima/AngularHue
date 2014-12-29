@@ -2,9 +2,10 @@
     .controller('signInCtrl',
     ['$scope', '$rootScope', '$http', '$cookies', '$cookieStore', '$location', '$routeParams', 'ngProgress',
         function ($scope, $rootScope, $http, $cookies, $cookieStore, $location, $routeParams, ngProgress) {
+            ngProgress.start();
 
             $scope.message = $routeParams.message;
-            $.material.init();
+            
             $scope.signIn = function () {
                 $scope.showMessage = false;
                 var params = "grant_type=password&username=" + $scope.username + "&password=" + $scope.password;
@@ -29,4 +30,6 @@
                     $scope.showMessage = true;
                 });
             }
+
+            ngProgress.complete();
         }]);

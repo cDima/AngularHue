@@ -21,8 +21,6 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.5.2",
-    "core-icons": "Polymer/core-icons#~0.5.2",
-    "paper-elements": "Polymer/paper-elements#~0.5.2"
+    "angular-material": "master"
   }
 }
