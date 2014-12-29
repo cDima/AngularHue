@@ -20,7 +20,7 @@ namespace AngularHue
                      ));
 
             bundles.Add(new ScriptBundle("~/scripts").Include(
-                        "~/Assets/jquery/jquery.min.js",
+                        "~/bower_components/jquery/dist/jquery.min.js",
                         "~/bower_components/bootstrap/js/bootstrap.js",
                         "~/bower_components/angular/angular.js",
                         "~/bower_components/angular-route/angular-route.js",

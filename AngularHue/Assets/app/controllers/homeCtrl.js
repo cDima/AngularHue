@@ -15,8 +15,9 @@
                               });
         };
         $scope.toggleRight = function () {
-            $mdSidenav('right').toggle()
-                                .then(function () {
+            var tab = $mdSidenav('right');
+            var r = tab.toggle();
+            r.then(function () {
                                     $log.debug("toggle RIGHT is done");
                                 });
         };
