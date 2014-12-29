@@ -1,14 +1,15 @@
 ﻿
 <div ng-cloak layout="vertical">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#/">Ambieye</a>
+    </div>
     <div class="navbar navbar-inverse  navbar-fixed-top">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#/">Ambieye</a>
-        </div>
+
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#/home">Home</a></li>
@@ -34,7 +35,7 @@
             </ul>
         </div>
     </div>
-    
+
     <div class="row site-body">
         <div class="col-md-10 col-md-offset-1" ng-view>
         </div>
