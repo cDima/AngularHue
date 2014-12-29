@@ -1,26 +1,34 @@
 ﻿angular.module('home', ['ngProgress', 'ngMaterial'])
     .controller('homeCtrl', ['$scope', '$http', 'ngProgress', '$timeout', '$mdSidenav', '$log',
         function ($scope, $http, ngProgress, $timeout, $mdSidenav, $log) {
-        ngProgress.start();
-        $scope.alert = function () {
-            alert("WOW");
-        }
-        ngProgress.complete();
+
+            ngProgress.start();
+
+            $scope.data = {
+                selectedIndex: 0,
+                secondLocked: false,
+                secondLabel: "Item Two"
+            };
+
+            $scope.alert = function () {
+                alert("WOW");
+            }
+            ngProgress.complete();
 
 
-        $scope.toggleLeft = function () {
-            $mdSidenav('left').toggle()
-                              .then(function () {
-                                  $log.debug("toggle left is done");
-                              });
-        };
-        $scope.toggleRight = function () {
-            var tab = $mdSidenav('right');
-            var r = tab.toggle();
-            r.then(function () {
-                                    $log.debug("toggle RIGHT is done");
-                                });
-        };
+            $scope.toggleLeft = function () {
+                $mdSidenav('left').toggle()
+                    .then(function () {
+                        $log.debug("toggle left is done");
+                    });
+            };
+            $scope.toggleRight = function () {
+                var tab = $mdSidenav('right');
+                var r = tab.toggle();
+                r.then(function () {
+                        $log.debug("toggle RIGHT is done");
+                    });
+            };
 
     }])
     .controller('LeftCtrl', function ($scope, $timeout, $mdSidenav, $log) {

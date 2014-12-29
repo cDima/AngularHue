@@ -1,8 +1,7 @@
-﻿<div layout="column" layout-fill>
-    <section layout="row" flex>
-        <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$media('gt-md')">
+﻿<div layout="column" layout-fill class="tabsdemoStaticTabs">
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2" ng-hide md-component-id="left" >
             <md-toolbar class="md-theme-indigo md-tall  md-toolbar-tools-bottom">
-                <h1 class="md-toolbar-tools">Sidenav Left</h1>
+                <h1 class="md-toolbar-tools">Left side</h1>
             </md-toolbar>
             <md-content class="md-padding" ng-controller="LeftCtrl">
                 <md-button ng-click="close()" class="md-primary" hide-gt-md>
@@ -12,18 +11,93 @@
                     This sidenav is locked open on your device. To go back to the default behavior,
                     narrow your display.
                 </p>
+
+                <md-button ng-href="#/home">Home</md-button>
+                <md-button ng-href="#/todomanager">Todo</md-button>
             </md-content>
         </md-sidenav>
-        <md-content flex class="">
-            <md-toolbar class="md-tall">
-                <span flex></span>
-                <h2 class="md-toolbar-tools md-toolbar-tools-bottom">
-                    <span class="md-flex">Ambieye</span>
-                </h2>
-            </md-toolbar>
-            <div layout="column" layout-fill layout-align="center center">
+
+    <md-content flex>
+        <md-toolbar md-scroll-shrink>
+            <div ng-click="toggleLeft()">
+                <div class="md-toolbar-tools">
+                    <md-button class="menu-icon" aria-label="Profile">
+                        @*hide-gt-sm=""*@
+                        @*<md-icon icon="bower_components/material-design-icons/navigation/svg/production/ic_menu_24px.svg">
+                </md-icon>*@
+                        <div class="icon-navigation-white icon-navigation-white-ic_menu_white_24dp"></div>
+                    </md-button>
+                    <h2 class="">
+                        <span>Ambieye</span>
+                    </h2>
+                    <div flex></div>
+                    <div class="icon-navigation-white icon-navigation-white-ic_menu_white_24dp"></div>
+                </div>
+            </div>
+
+
+            @*<form class="navbar-form navbar-left">
+                    <input type="text" class="form-control col-lg-8" placeholder="Search">
+                </form>*@
+        </md-toolbar>
+
+        <md-tabs class="md-default" md-selected="data.selectedIndex">
+            <md-tab id="tab1" aria-controls="tab1-content">
+                Item One
+            </md-tab>
+            <md-tab id="tab2" aria-controls="tab2-content" ng-disabled="data.secondLocked">
+                {{data.secondLabel}}
+            </md-tab>
+            <md-tab id="tab3" aria-controls="tab3-content">
+                Item Three
+            </md-tab>
+        </md-tabs>
+
+        <ng-switch on="data.selectedIndex" class="tabpanel-container">
+            <div role="tabpanel"
+                 class="md-padding"
+                 id="tab1-content"
+                 aria-labelledby="tab1"
+                 ng-switch-when="0"
+                 md-swipe-left="next()"
+                 md-swipe-right="previous()">
+                View for Item #1<br />
+                data.selectedIndex = 0
+
+
+                <h2>Home</h2>
+
+                <p>
+                    the Web Api is used to expose services to potential clients, while angular is used for all frontend operations.
+                    You will notice there are several other additions, such as jQuery and Bootstrap.
+                    jQuery was added to support Bootstrap.
+                    There are other bootstrap options, which play nice with Angular; but I choose regular bootstrap.
+                </p>
+                <p>
+                    A change has been made to WebApiConfig.cs, which changes all the routing for services.
+                    By default, services are identified by the parameters they accept.
+                    I modified this to identity services based on their name and their parameters.
+                </p>
+                <p>
+                    AppController.cs is used to give partial views upon request.
+                    Such as App/Home will give the home page, and it will return the home.cshtml.
+                    home.cshtml is a partial page, and it will be inserted in the ngView when returned from the server.
+                </p>
+
+            </div>
+            <div role="tabpanel"
+                 id="tab2-content"
+                 aria-labelledby="tab2"
+                 ng-switch-when="1"
+                 md-swipe-left="next()"
+                 md-swipe-right="previous()">
+
+                View for {{data.secondLabel}}<br />
+                data.selectedIndex = 1
+
                 <p>
                     The left sidenav will 'lock open' on a medium (>=960px wide) device.
+
                 </p>
                 <div>
                     <md-button ng-click="toggleLeft()" class="md-primary" hide-gt-md>
@@ -35,44 +109,53 @@
                         Toggle right
                     </md-button>
                 </div>
+
+            </div>
+            <div role="tabpanel"
+                 id="tab3-content"
+                 aria-labelledby="tab3"
+                 ng-switch-when="2"
+                 md-swipe-left="next()"
+                 md-swipe-right="previous()">
+                View for Item #3<br />
+                data.selectedIndex = 2
+
+
+                <h3>Contact Info</h3>
+                <p>Questions or suggestions can be emailed to contact@dahlnfarnes.com</p>
+
+
+
+            </div>
+        </ng-switch>
+
+        @*<div layout="column" layout-fill layout-align="center center">
+
+            </div>*@
+    </md-content>
+    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+        <md-toolbar class="md-theme-light md-tall  md-toolbar-tools-bottom">
+            <h1 class="md-toolbar-tools">Sidenav Right</h1>
+        </md-toolbar>
+        <md-content ng-controller="RightCtrl" class="md-padding">
+            <md-button ng-click="close()" class="md-primary">
+                Close Sidenav Right
+            </md-button>
+
+            <md-button ng-href="#/signin" ng-show="!loggedIn">Signin</md-button>
+
+            <div ng-show="loggedIn">
+                {{username}} <b class="caret"></b>
+
+                <md-button ng-href="#/managelogins">Manage logins</md-button>
+                <md-button ng-href="#/settings">Settings</md-button>
+                <md-button ng-click="logout()">Logout</md-button>
             </div>
         </md-content>
-        <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
-            <md-toolbar class="md-theme-light md-tall  md-toolbar-tools-bottom">
-                <h1 class="md-toolbar-tools">Sidenav Right</h1>
-            </md-toolbar>
-            <md-content ng-controller="RightCtrl" class="md-padding">
-                <md-button ng-click="close()" class="md-primary">
-                    Close Sidenav Right
-                </md-button>
-            </md-content>
-        </md-sidenav>
-    </section>
+    </md-sidenav>
+    <section layout="row" flex></section>
 </div>
 
-
-
-<h2>Home</h2>
-
-<p>
-    the Web Api is used to expose services to potential clients, while angular is used for all frontend operations.
-    You will notice there are several other additions, such as jQuery and Bootstrap.
-    jQuery was added to support Bootstrap.
-    There are other bootstrap options, which play nice with Angular; but I choose regular bootstrap.
-</p>
-<p>
-    A change has been made to WebApiConfig.cs, which changes all the routing for services.
-    By default, services are identified by the parameters they accept.
-    I modified this to identity services based on their name and their parameters.
-</p>
-<p>
-    AppController.cs is used to give partial views upon request.
-    Such as App/Home will give the home page, and it will return the home.cshtml.
-    home.cshtml is a partial page, and it will be inserted in the ngView when returned from the server.
-</p>
-
-<h3>Contact Info</h3>
-<p>Questions or suggestions can be emailed to contact@dahlnfarnes.com</p>
 
 
 
