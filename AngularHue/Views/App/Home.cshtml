@@ -19,22 +19,29 @@
 
     <md-content flex>
         <md-toolbar md-scroll-shrink>
-            <div ng-click="toggleLeft()">
-                <div class="md-toolbar-tools">
-                    <md-button class="menu-icon" aria-label="Profile">
-                        @*hide-gt-sm=""*@
-                        @*<md-icon icon="bower_components/material-design-icons/navigation/svg/production/ic_menu_24px.svg">
-                </md-icon>*@
+            <div class="md-toolbar-tools">
+                <md-button class="menu-icon" aria-label="Profile">
+                    @*hide-gt-sm=""*@
+                    @*<md-icon icon="bower_components/material-design-icons/navigation/svg/production/ic_menu_24px.svg">
+            </md-icon>*@
+                    <div ng-click="toggleLeft()">
                         <div class="icon-navigation-white icon-navigation-white-ic_menu_white_24dp"></div>
-                    </md-button>
-                    <h2 class="">
-                        <span>Ambieye</span>
-                    </h2>
-                    <div flex></div>
-                    <div class="icon-navigation-white icon-navigation-white-ic_menu_white_24dp"></div>
-                </div>
-            </div>
+                    </div>
+                </md-button>
+                <h2 class="">
+                    <span>
+                        <div class="logo-icon icon-action-white icon-action-white-ic_visibility_white_24dp"></div>
+                        Ambieye
+                    </span>
+                </h2>
+                <div flex></div>
 
+                <div class="icon-action-white icon-action-black-ic_search_black_24dp"></div>
+                <div class="icon-action-white icon-action-white-ic_account_circle_white_24dp"></div>
+                <md-button class="menu-icon" aria-label="Profile" ng-click="toggleRight()">
+                    <div class="icon-navigation-white icon-navigation-white-ic_more_vert_white_24dp"></div>
+                </md-button>
+            </div>
 
             @*<form class="navbar-form navbar-left">
                     <input type="text" class="form-control col-lg-8" placeholder="Search">

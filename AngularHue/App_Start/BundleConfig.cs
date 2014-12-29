@@ -18,6 +18,7 @@ namespace AngularHue
                      "~/bower_components/ngprogress/ngProgress.css",
                      "~/bower_components/components-font-awesome/css/font-awesome.min.css",
                      "~/bower_components/material-design-icons/sprites/css-sprite/sprite-navigation-white.css",
+                     "~/bower_components/material-design-icons/sprites/css-sprite/sprite-action-white.css",
                      "~/Assets/styles/styles.css"
                      ));
 

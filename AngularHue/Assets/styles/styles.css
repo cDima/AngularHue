@@ -1,6 +1,11 @@
 ﻿body {
 }
 
+.logo-icon {
+    display: inline-flex;
+    vertical-align: text-bottom;
+}
+
 .menu-icon .md-icon {
     fill:white;
 }
