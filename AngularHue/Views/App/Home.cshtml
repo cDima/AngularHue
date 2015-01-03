@@ -1,21 +1,28 @@
-﻿<div layout="column" layout-fill class="tabsdemoStaticTabs">
-    <md-sidenav class="md-sidenav-left md-whiteframe-z2" ng-hide md-component-id="left" >
-            <md-toolbar class="md-theme-indigo md-tall  md-toolbar-tools-bottom">
-                <h1 class="md-toolbar-tools">Left side</h1>
-            </md-toolbar>
-            <md-content class="md-padding" ng-controller="LeftCtrl">
-                <md-button ng-click="close()" class="md-primary" hide-gt-md>
-                    Close Sidenav Left
-                </md-button>
-                <p hide-md show-gt-md>
-                    This sidenav is locked open on your device. To go back to the default behavior,
-                    narrow your display.
-                </p>
+﻿@using AngularHue;
+@using Microsoft.AspNet.Identity
+@using Microsoft.Owin.Security;
+@using AngularHue.Models;
+@using Microsoft.AspNet.Identity.Owin;
 
-                <md-button ng-href="#/home">Home</md-button>
-                <md-button ng-href="#/todomanager">Todo</md-button>
-            </md-content>
-        </md-sidenav>
+
+<div layout="column" layout-fill >
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2" ng-hide md-component-id="left">
+        <md-toolbar class="md-theme-indigo md-tall  md-toolbar-tools-bottom">
+            <h1 class="md-toolbar-tools">Left side</h1>
+        </md-toolbar>
+        <md-content class="md-padding" ng-controller="LeftCtrl">
+            <md-button ng-click="close()" class="md-primary" hide-gt-md>
+                Close Sidenav Left
+            </md-button>
+            <p hide-md show-gt-md>
+                This sidenav is locked open on your device. To go back to the default behavior,
+                narrow your display.
+            </p>
+
+            <md-button ng-href="#/home">Home</md-button>
+            <md-button ng-href="#/todomanager">Todo</md-button>
+        </md-content>
+    </md-sidenav>
 
     <md-content flex>
         <md-toolbar md-scroll-shrink>
@@ -23,7 +30,7 @@
                 <md-button class="menu-icon" aria-label="Profile">
                     @*hide-gt-sm=""*@
                     @*<md-icon icon="bower_components/material-design-icons/navigation/svg/production/ic_menu_24px.svg">
-            </md-icon>*@
+                        </md-icon>*@
                     <div ng-click="toggleLeft()">
                         <div class="icon-navigation-white icon-navigation-white-ic_menu_white_24dp"></div>
                     </div>
@@ -37,10 +44,34 @@
                 <div flex></div>
 
                 <div class="icon-action-white icon-action-black-ic_search_black_24dp"></div>
-                <div class="icon-action-white icon-action-white-ic_account_circle_white_24dp"></div>
+
+                @{
+                    //Context.GetOwinContext().Request.User.Identity.GetUserId();
+                    //var UserManager = new UserManager<User>
+                    //    (new Microsoft.AspNet.Identity.EntityFramework.UserStore<User>(new DBContext()));
+                    //var user = UserManager.FindById(User.Identity.GetUserId());   
+                }
+
+                        @*@Html.Partial("_ProfilePartial", user);*@
+                <div flex>
+                    <img ng-src="{{auth.image}}" class="profile-img" alt="Profile image" ng-cloak />
+                    <div class="name truncate">{{auth.name}}</div>
+
+                    <a class="account" ng-hide="!auth.isAuth" href="#/profile" ng-click="toggleRight()">
+                        Profile
+                    </a>
+                    <a class="icon-action-white icon-action-white-ic_account_circle_white_24dp" ng-hide="auth.isAuth" href="#/profile" ng-click="toggleRight()">
+                    </a>
+                    Register
+                </div>
                 <md-button class="menu-icon" aria-label="Profile" ng-click="toggleRight()">
                     <div class="icon-navigation-white icon-navigation-white-ic_more_vert_white_24dp"></div>
                 </md-button>
+
+                <div class="container">
+                    <span class="fontawesome-github-alt"></span>
+                </div>
+
             </div>
 
             @*<form class="navbar-form navbar-left">
@@ -69,29 +100,39 @@
                  md-swipe-left="next()"
                  md-swipe-right="previous()">
                 View for Item #1<br />
-                data.selectedIndex = 0
+                
 
+
+                <div ng-init="items=[1,2,3,4,5,6,7,8,9]">
+                    <input placeholder="Filter Repeat Items..." ng-model="f" />
+                    <div ng-repeat="item in items | filter:f" class="repeat-animation">
+                        {{ item }}
+                    </div>
+                </div>
 
                 <h2>Home</h2>
 
-                <p>
-                    the Web Api is used to expose services to potential clients, while angular is used for all frontend operations.
-                    You will notice there are several other additions, such as jQuery and Bootstrap.
-                    jQuery was added to support Bootstrap.
-                    There are other bootstrap options, which play nice with Angular; but I choose regular bootstrap.
-                </p>
-                <p>
-                    A change has been made to WebApiConfig.cs, which changes all the routing for services.
-                    By default, services are identified by the parameters they accept.
-                    I modified this to identity services based on their name and their parameters.
-                </p>
-                <p>
-                    AppController.cs is used to give partial views upon request.
-                    Such as App/Home will give the home page, and it will return the home.cshtml.
-                    home.cshtml is a partial page, and it will be inserted in the ngView when returned from the server.
-                </p>
+                @*<div class="view-container">
+                    <div ng-view class="reveal-animation"></div>
+                </div>*@
+                    <p>
+                        the Web Api is used to expose services to potential clients, while angular is used for all frontend operations.
+                        You will notice there are several other additions, such as jQuery and Bootstrap.
+                        jQuery was added to support Bootstrap.
+                        There are other bootstrap options, which play nice with Angular; but I choose regular bootstrap.
+                    </p>
+                    <p>
+                        A change has been made to WebApiConfig.cs, which changes all the routing for services.
+                        By default, services are identified by the parameters they accept.
+                        I modified this to identity services based on their name and their parameters.
+                    </p>
+                    <p>
+                        AppController.cs is used to give partial views upon request.
+                        Such as App/Home will give the home page, and it will return the home.cshtml.
+                        home.cshtml is a partial page, and it will be inserted in the ngView when returned from the server.
+                    </p>
 
-            </div>
+                </div>
             <div role="tabpanel"
                  id="tab2-content"
                  aria-labelledby="tab2"
@@ -148,6 +189,10 @@
             <md-button ng-click="close()" class="md-primary">
                 Close Sidenav Right
             </md-button>
+
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial")
+            </section>
 
             <md-button ng-href="#/signin" ng-show="!loggedIn">Signin</md-button>
 

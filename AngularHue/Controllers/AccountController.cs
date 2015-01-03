@@ -18,6 +18,8 @@ using AngularHue.Providers;
 using AngularHue.Results;
 using AngularHue.Models.Utility;
 using System.Net;
+using Newtonsoft.Json.Linq;
+using System.Linq;
 
 namespace AngularHue.Controllers
 {
@@ -27,6 +29,7 @@ namespace AngularHue.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+        private ApplicationSignInManager _signInManager;
 
         public AccountController()
         {
@@ -48,6 +51,25 @@ namespace AngularHue.Controllers
             private set
             {
                 _userManager = value;
+            }
+        }
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return Request.GetOwinContext().Authentication;
+            }
+        }
+
+        public ApplicationSignInManager SignInManager
+        {
+            get
+            {
+                return _signInManager ?? Request.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -75,6 +97,16 @@ namespace AngularHue.Controllers
             Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             return Ok();
         }
+
+        // POST api/Account/Login
+        //[OverrideAuthentication]
+        //[HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
+        //[AllowAnonymous]
+        //[Route("Login")]
+        //public IHttpActionResult Login(string provider, string returnUrl)
+        //{
+        //    return new ChallengeResult(provider, this);// AddExternalLogin("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+        //}
 
         // GET api/Account/ManageInfo?returnUrl=%2F&generateState=true
         [Route("ManageInfo")]
@@ -222,11 +254,14 @@ namespace AngularHue.Controllers
             return Ok();
         }
 
-        // GET api/Account/ExternalLogin
         [OverrideAuthentication]
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
         [AllowAnonymous]
         [Route("ExternalLogin", Name = "ExternalLogin")]
+        // GET api/Account/ExternalLogin
+        //[OverrideAuthentication]
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
+        //[AllowAnonymous]
+        //[Route("ExternalLogin", Name = "ExternalLogin")]
         public async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
         {
             if (error != null)
@@ -238,6 +273,9 @@ namespace AngularHue.Controllers
             {
                 return new ChallengeResult(provider, this);
             }
+
+
+            var info = await AuthenticationManager.GetExternalLoginInfoAsync();
 
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
 
@@ -251,9 +289,29 @@ namespace AngularHue.Controllers
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
                 return new ChallengeResult(provider, this);
             }
+            
+            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+            if (loginInfo.Login.LoginProvider == "Google" || 
+                loginInfo.Login.LoginProvider == "Facebook")
+            {
+                var socialUser = new User { 
+                    UserName = loginInfo.Email, 
+                    Email = loginInfo.Email
+                };
+                
+                socialUser.Name = loginInfo.ExternalIdentity.FindFirst("name").Value;
+                socialUser.Image = loginInfo.ExternalIdentity.FindFirst("image").Value;
+                if (loginInfo.Login.LoginProvider == "Google") 
+                    socialUser.ProfileLinkGoogle = loginInfo.ExternalIdentity.FindFirst("profile").Value;
+                if (loginInfo.Login.LoginProvider == "Facebook") 
+                    socialUser.ProfileLinkFacebook = loginInfo.ExternalIdentity.FindFirst("profile").Value;
 
+                var autoUser = await AutoRegister(socialUser);
+            }
+            
             User user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
+
 
             bool hasRegistered = user != null;
 
@@ -276,8 +334,23 @@ namespace AngularHue.Controllers
                 Authentication.SignIn(identity);
             }
 
-            return Ok();
+
+            //var redirectUri = new Uri(Request.RequestUri, "~/authcomplete.html").AbsoluteUri; //GetQueryString(Request, "redirect_uri");
+
+            var redirectUri = (HttpContext.Current.Request.Url.Scheme + "://" + 
+                HttpContext.Current.Request.Url.Authority + "/authcomplete.html");
+     
+
+            redirectUri = string.Format("{0}#external_access_token={1}&provider={2}&haslocalaccount={3}&external_user_name={4}",
+                                            redirectUri,
+                                            externalLogin.ExternalAccessToken,
+                                            externalLogin.LoginProvider,
+                                            hasRegistered.ToString(),
+                                            externalLogin.UserName);
+
+            return Redirect(redirectUri);
         }
+
 
         // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
         [AllowAnonymous]
@@ -341,6 +414,18 @@ namespace AngularHue.Controllers
                     {
                         return Request.CreateResponse(HttpStatusCode.NotAcceptable, result.Errors);
                     }
+                    // todo: send confirm email
+
+                    /*await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // Send an email with this link
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account",
+                        new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id,
+                        "Confirm your account",
+                        "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    */
                 }
                 else
                     return Request.CreateResponse(HttpStatusCode.NotAcceptable, "Email address is already in use.");
@@ -352,36 +437,323 @@ namespace AngularHue.Controllers
         }
 
         // POST api/Account/RegisterExternal
-        [OverrideAuthentication]
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
+        [AllowAnonymous]
         [Route("RegisterExternal")]
         public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel model)
         {
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var info = await Authentication.GetExternalLoginInfoAsync();
-            if (info == null)
+            // go to socialnetwork and ask for token authenticity.
+            var verifiedAccessToken = await VerifyExternalAccessToken(model.Provider, model.ExternalAccessToken);
+            if (verifiedAccessToken == null)
             {
-                return InternalServerError();
+                return BadRequest("Invalid Provider or External Access Token");
             }
 
-            var user = new User() { UserName = model.Email, Email = model.Email };
+            var loginInfo = new UserLoginInfo(model.Provider, verifiedAccessToken.user_id);
+            var user = await UserManager.FindAsync(loginInfo);
+            var externalInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
 
-            IdentityResult result = await UserManager.CreateAsync(user);
+            bool hasRegistered = user != null;
+
+            if (hasRegistered)
+            {
+                return BadRequest("External user is already registered");
+            }
+
+            //user = new IdentityUser() { UserName = model.UserName };
+            
+            var newuser = new User() { UserName = model.Email, Email = model.Email };
+
+            IdentityResult result = await UserManager.CreateAsync(newuser);
+            //IdentityResult result = await UserManager.CreateAsync(user);
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
+
+            var info = new ExternalLoginInfo()
+            {
+                DefaultUserName = model.UserName,
+                Login = new UserLoginInfo(model.Provider, verifiedAccessToken.user_id)
+            };
 
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
             }
-            return Ok();
+
+            //generate access token response
+            user = await UserManager.FindAsync(loginInfo);
+            var accessTokenResponse = GenerateLocalAccessTokenResponse(user);
+
+            //throw new Exception("Social login users cannot register");
+
+            return Ok(accessTokenResponse);
+        }
+
+
+        public async Task<IdentityResult> AutoRegister(User user)
+        {
+            // Get the information about the user from the external login provider
+            var info = await AuthenticationManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                return null;
+            }
+            user.EmailConfirmed = true; // in socialnetworks we trust.
+
+            var founduser = UserManager.FindByEmail(user.Email);
+            if (founduser == null)
+            {
+                var createResult = await UserManager.CreateAsync(user);
+                if (!createResult.Succeeded)
+                {
+                    return createResult;
+                }
+                founduser = UserManager.FindByEmail(user.Email);
+            }
+            else 
+            {
+                // update user
+                if (founduser.Image == null) founduser.Image = user.Image;
+                if (founduser.ProfileLinkFacebook == null) founduser.ProfileLinkFacebook = user.ProfileLinkFacebook;
+                if (founduser.ProfileLinkGoogle == null) founduser.ProfileLinkGoogle = user.ProfileLinkGoogle;
+                UserManager.Update(founduser);
+            }
+            var existingLogins = UserManager.GetLogins(founduser.Id);
+            
+            var existingLogin = existingLogins.FirstOrDefault(s => s.LoginProvider == info.Login.LoginProvider && s.ProviderKey == info.Login.ProviderKey);
+            if (existingLogin == null)
+            {
+                var addLoginResult = UserManager.AddLogin(founduser.Id, info.Login);
+                if (!addLoginResult.Succeeded)
+                {
+                    return addLoginResult;
+                }
+            }
+            
+            await SignInManager.SignInAsync(founduser, isPersistent: false, rememberBrowser: false);
+            return null;
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("ObtainLocalAccessToken")]
+        public async Task<IHttpActionResult> ObtainLocalAccessToken(string provider, string externalAccessToken)
+        {
+            if (string.IsNullOrWhiteSpace(provider) || string.IsNullOrWhiteSpace(externalAccessToken))
+            {
+                return BadRequest("Provider or external access token is not sent");
+            }
+
+            var verifiedAccessToken = await VerifyExternalAccessToken(provider, externalAccessToken);
+            if (verifiedAccessToken == null)
+            {
+                return BadRequest("Invalid Provider or External Access Token");
+            }
+
+            var user = await UserManager.FindAsync(new UserLoginInfo(provider, verifiedAccessToken.user_id));
+
+            bool hasRegistered = user != null;
+
+            if (!hasRegistered)
+            {
+                return BadRequest("External user is not registered");
+            }
+
+            //generate access token response
+            var accessTokenResponse = GenerateLocalAccessTokenResponse(user);
+
+            return Ok(accessTokenResponse);
+
+        }
+
+        // POST api/Account/RegisterExternal
+        //[OverrideAuthentication]
+        //[HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
+        //[Route("RegisterExternal")]
+        //public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    var loginInfo = await Authentication.GetExternalLoginInfoAsync();
+        //    if (loginInfo == null)
+        //    {
+        //        return InternalServerError();
+        //    }
+
+        //    //var user = new User() { UserName = model.Email, Email = model.Email };
+
+        //    //IdentityResult result = await UserManager.CreateAsync(user);
+        //    //if (!result.Succeeded)
+        //    //{
+        //    //    return GetErrorResult(result);
+        //    //}
+
+        //    //result = await UserManager.AddLoginAsync(user.Id, info.Login);
+        //    //if (!result.Succeeded)
+        //    //{
+        //    //    return GetErrorResult(result);
+        //    //}
+
+        //    // Sign in the user with this external login provider - he may be registered or not.
+        //    var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+
+        //    switch (result)
+        //    {
+        //        case SignInStatus.Success:
+        //            return Ok();
+        //        case SignInStatus.LockedOut:
+        //            // todo: test 
+        //            return Redirect("Lockout");//View("Lockout");
+        //        case SignInStatus.RequiresVerification:
+        //            return RedirectToRoute("SendCode", 
+        //                new { 
+        //                    //ReturnUrl = returnUrl, 
+        //                    RememberMe = false 
+        //                });
+        //        case SignInStatus.Failure:
+        //        default:
+        //            // auto-register for Google:
+        //            if (loginInfo.Login.LoginProvider == "Google" ||
+        //                loginInfo.Login.LoginProvider == "Facebook")
+        //            {
+        //                var user = new User
+        //                {
+        //                    UserName = loginInfo.Email,
+        //                    Email = loginInfo.Email
+        //                };
+
+        //                //user.Name = loginInfo.ExternalIdentity.FindFirst("name").Value;
+        //                //user.Image = loginInfo.ExternalIdentity.FindFirst("image").Value;
+        //                //user.ProfileLink = loginInfo.ExternalIdentity.FindFirst("profile").Value;
+
+        //                var autoUser = await AutoRegister(user);
+        //            }
+
+        //            // If the user does not have an account, then prompt the user to create an account
+        //            //ViewBag.ReturnUrl = returnUrl;
+        //            //ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+        //            return Ok();//RedirectToAction("Index", "Home");
+        //        //return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+        //    }
+
+        //    return Ok();
+        //}
+
+        
+        private async Task<ParsedExternalAccessToken> VerifyExternalAccessToken(string provider, string accessToken)
+        {
+            ParsedExternalAccessToken parsedToken = null;
+
+            var verifyTokenEndPoint = "";
+
+            if (provider == "Facebook")
+            {
+                //You can get it from here: https://developers.facebook.com/tools/accesstoken/
+                //More about debug_tokn here: http://stackoverflow.com/questions/16641083/how-does-one-get-the-app-access-token-for-debug-token-inspection-on-facebook
+
+                var appToken = "398943743535206|q_i15vl16IJRcDNGJHEZf5udkUg";
+                verifyTokenEndPoint = string.Format("https://graph.facebook.com/debug_token?input_token={0}&access_token={1}", accessToken, appToken);
+            }
+            else if (provider == "Google")
+            {
+                verifyTokenEndPoint = string.Format("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token={0}", accessToken);
+            }
+            else
+            {
+                return null;
+            }
+
+            var client = new HttpClient();
+            var uri = new Uri(verifyTokenEndPoint);
+            var response = await client.GetAsync(uri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+
+                dynamic jObj = (JObject)Newtonsoft.Json.JsonConvert.DeserializeObject(content);
+
+                parsedToken = new ParsedExternalAccessToken();
+
+                if (provider == "Facebook")
+                {
+                    parsedToken.user_id = jObj["data"]["user_id"];
+                    parsedToken.app_id = jObj["data"]["app_id"];
+
+                    if (!string.Equals(Startup.facebookAuthOptions.AppId, parsedToken.app_id, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return null;
+                    }
+                }
+                else if (provider == "Google")
+                {
+                    parsedToken.user_id = jObj["user_id"];
+                    parsedToken.app_id = jObj["audience"];
+
+                    if (!string.Equals(Startup.googleAuthOptions.ClientId, parsedToken.app_id, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return null;
+                    }
+
+                }
+
+            }
+
+            return parsedToken;
+        }
+        private JObject GenerateLocalAccessTokenResponse(User user)
+        {
+
+            var tokenExpiration = TimeSpan.FromDays(1);
+
+            ClaimsIdentity identity = new ClaimsIdentity(OAuthDefaults.AuthenticationType);
+
+            identity.AddClaim(new Claim("role", "user"));
+            identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
+            identity.AddClaim(new Claim(ClaimTypes.GivenName, user.Name));
+            identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
+            identity.AddClaim(new Claim("image", user.Image));
+            if (user.ProfileLinkGoogle != null) 
+                identity.AddClaim(new Claim("googlelink", user.ProfileLinkGoogle));
+            if (user.ProfileLinkFacebook != null) 
+                identity.AddClaim(new Claim("facebooklink", user.ProfileLinkFacebook));
+            
+            var props = new AuthenticationProperties()
+            {
+                IssuedUtc = DateTime.UtcNow,
+                ExpiresUtc = DateTime.UtcNow.Add(tokenExpiration),
+            };
+
+            var ticket = new AuthenticationTicket(identity, props);
+
+            var accessToken = Startup.OAuthBearerOptions.AccessTokenFormat.Protect(ticket);
+
+            JObject tokenResponse = new JObject(
+                                        new JProperty("userName", user.UserName),
+                                        new JProperty("name", user.Name),
+                                        new JProperty("email", user.Email),
+                                        new JProperty("image", user.Image),
+                                        new JProperty("googlelink", user.ProfileLinkGoogle),
+                                        new JProperty("facebooklink", user.ProfileLinkFacebook),
+                                        new JProperty("access_token", accessToken),
+                                        new JProperty("token_type", "bearer"),
+                                        new JProperty("expires_in", tokenExpiration.TotalSeconds.ToString()),
+                                        new JProperty(".issued", ticket.Properties.IssuedUtc.ToString()),
+                                        new JProperty(".expires", ticket.Properties.ExpiresUtc.ToString())
+        );
+
+            return tokenResponse;
         }
 
         protected override void Dispose(bool disposing)
@@ -435,6 +807,7 @@ namespace AngularHue.Controllers
             public string LoginProvider { get; set; }
             public string ProviderKey { get; set; }
             public string UserName { get; set; }
+            public string ExternalAccessToken { get; set; }
 
             public IList<Claim> GetClaims()
             {
@@ -473,7 +846,8 @@ namespace AngularHue.Controllers
                 {
                     LoginProvider = providerKeyClaim.Issuer,
                     ProviderKey = providerKeyClaim.Value,
-                    UserName = identity.FindFirstValue(ClaimTypes.Name)
+                    UserName = identity.FindFirstValue(ClaimTypes.Name),
+                    ExternalAccessToken = identity.FindFirstValue("ExternalAccessToken"),
                 };
             }
         }

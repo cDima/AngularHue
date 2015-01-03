@@ -1,7 +1,7 @@
 ﻿<h3>Register</h3>
 
 <p>
-    To demo this application, create an account.  Account username and password rules are enforced on the server.  The IdentityConfig.cs defines the rules for a valid username and password.  The Register function in the AccountController.cs handles the creation of the account.  After registering, navigate to the Sign In page and enter your new credentials.
+    @*The Register function in the AccountController.cs handles the creation of the account.*@
 </p>
 
 <form ng-submit="register()" class="row">
@@ -10,7 +10,7 @@
         <div class="row"><input class="form-control margin-top-5" type="password" ng-model="password1" placeholder="Password" /></div>
         <div class="row"><input class="form-control margin-top-5" type="password" ng-model="password2" placeholder="Confirm Password" /></div>
         <div class="row"><input class="btn btn-primary margin-top-5" type="submit" value="Register" /></div>
-    </div>    
+    </div>
 </form>
 <div class="row">
     <div class="col-md-3">

@@ -50,13 +50,6 @@ namespace AngularHue.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class RegisterExternalBindingModel
-    {
-        [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
-    }
-
     public class RemoveLoginBindingModel
     {
         [Required]

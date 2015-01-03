@@ -13,7 +13,12 @@ namespace AngularHue.Models
 {
     public class User : IdentityUser
     {
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager, string authenticationType)
+        public string Name { get; set; }
+        public string Image { get; set; }
+        public string ProfileLinkGoogle { get; set; }
+        public string ProfileLinkFacebook { get; set; }
+
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager, string authenticationType = DefaultAuthenticationTypes.ApplicationCookie)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
@@ -24,6 +29,7 @@ namespace AngularHue.Models
         public string firstName { get; set; }
 
         public virtual List<todoItem> todoItems { get; set; }
+
     }
 
     public class todoItem

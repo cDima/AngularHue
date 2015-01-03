@@ -19,6 +19,7 @@ namespace AngularHue
                      "~/bower_components/components-font-awesome/css/font-awesome.min.css",
                      "~/bower_components/material-design-icons/sprites/css-sprite/sprite-navigation-white.css",
                      "~/bower_components/material-design-icons/sprites/css-sprite/sprite-action-white.css",
+                     "~/Assets/styles/flat-social-icons.css",
                      "~/Assets/styles/styles.css"
                      ));
 
@@ -29,10 +30,11 @@ namespace AngularHue
             bundles.Add(new ScriptBundle("~/ng").Include(
                         "~/bower_components/angular/angular.js",
                         "~/bower_components/angular-route/angular-route.js",
+                        "~/bower_components/angular-animate/angular-animate.js",
                         "~/bower_components/angular-aria/angular-aria.js",
                         "~/bower_components/angular-cookies/angular-cookies.js",
-                        "~/bower_components/angular-animate/angular-animate.js",
                         "~/bower_components/hammerjs/hammer.js",
+                        "~/Assets/misc/angular-local-storage.min.js",
                         "~/bower_components/angular-material/angular-material.js",
                         "~/bower_components/ngprogress/build/ngProgress.js"
                    ));

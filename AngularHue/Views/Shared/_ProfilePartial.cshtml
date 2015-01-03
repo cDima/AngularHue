@@ -1,0 +1,15 @@
+﻿@model AngularHue.Models.User
+@using Microsoft.Owin.Security
+
+<ul class="nav navbar-nav navbar-right">
+    <li>
+        @if (Model != null)
+        {
+            <a href="@Url.Action("Index", "Manage" )" class="truncate">
+                <img class="profile" src="@Model.Image" />
+                @Model.Name
+            </a>
+        }
+    </li>
+    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+</ul>
