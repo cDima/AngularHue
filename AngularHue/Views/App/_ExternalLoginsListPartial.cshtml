@@ -18,21 +18,13 @@
         @*<md-button ng-click="signInGoogle()">Google</md-button>*@
 
         <div class="social-logins" layout="column">
-            @*<md-button class="md-fab social-login left" aria-label="Login with Facebook" data-ng-click="authExternalProvider('Facebook')">
-                    <img src="~/Assets/img/facebook-long.png" />
-                    <md-tooltip>Connect with Facebook</md-tooltip>
-                </md-button>
-                <md-button class="md-fab social-login right" aria-label="Login with Google" data-ng-click="authExternalProvider('Google')">
-                    <img src="~/Assets/img/google-long.png" />
-                    <md-tooltip>Connect with Google</md-tooltip>
-                </md-button>*@
-            <div flex>
+            <div style="height: 60px;">
                 <md-button flex layout="row" class="flat-shadow-facebook social-login flat-shadow " aria-label="Login with Facebook" data-ng-click="authExternalProvider('Facebook')">
                     <i flex class="fa fa-facebook"></i>
                     <span>Connect with Facebook</span>
                 </md-button>
             </div>
-            <div flex>
+            <div style="height: 60px;">
                 <md-button flex layout="row" class="flat-shadow-google-plus social-login flat-shadow " aria-label="Login with Google" data-ng-click="authExternalProvider('Google')">
                     <i flex class="fa fa-google"></i>
                     <span flex>Connect with Google</span>
