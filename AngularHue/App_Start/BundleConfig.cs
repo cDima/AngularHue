@@ -9,13 +9,10 @@ namespace AngularHue
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/styles").Include(
-                     //"~/bower_components/bootstrap/dist/css/bootstrap.css",
-                     //"~/bower_components/bootstrap/dist/css/bootstrap-theme.css",
-                     //"~/bower_components/bootstrap-material-design/dist/css/ripples.css",
-                     //"~/bower_components/bootstrap-material-design/dist/css/material.css",
                      "~/bower_components/angular-material/angular-material.css",
                      "~/bower_components/angular-material/themes/blue-theme.css",
                      "~/bower_components/ngprogress/ngProgress.css",
+                     "~/bower_components/roboto-fontface/roboto-fontface.css",
                      "~/bower_components/components-font-awesome/css/font-awesome.min.css",
                      "~/bower_components/material-design-icons/sprites/css-sprite/sprite-navigation-white.css",
                      "~/bower_components/material-design-icons/sprites/css-sprite/sprite-action-white.css",
@@ -27,6 +24,11 @@ namespace AngularHue
                         "~/bower_components/webcomponentsjs/webcomponents.js"
                         ));
 
+            bundles.Add(new ScriptBundle("~/trianglify").Include(
+                        "~/bower_components/d3/d3.min.js",
+                        "~/bower_components/trianglify/trianglify.js"
+                        ));
+
             bundles.Add(new ScriptBundle("~/ng").Include(
                         "~/bower_components/angular/angular.js",
                         "~/bower_components/angular-route/angular-route.js",
@@ -34,7 +36,7 @@ namespace AngularHue
                         "~/bower_components/angular-aria/angular-aria.js",
                         "~/bower_components/angular-cookies/angular-cookies.js",
                         "~/bower_components/hammerjs/hammer.js",
-                        "~/Assets/misc/angular-local-storage.min.js",
+                        "~/bower_components/angular-local-storage/dist/angular-local-storage.js",
                         "~/bower_components/angular-material/angular-material.js",
                         "~/bower_components/ngprogress/build/ngProgress.js"
                    ));

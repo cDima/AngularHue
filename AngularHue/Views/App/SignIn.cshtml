@@ -1,22 +1,48 @@
-﻿<h3>Sign In</h3>
-
-<form ng-submit="signIn()" class="row">
-
-    <div class="col-md-3">
-        <div class="row">
-            <div class="alert alert-success" ng-show="message == 'ended'">
-                <h4>Due to inactivity, you were logged out automatically.</h4>
+﻿<md-content flex class="signin md-whiteframe-z2 ">
+    <md-toolbar md-scroll-shrink class="rounded-header">
+        <div class="md-toolbar-tools">
+            <h2>
+                <span>
+                    <div class="logo-icon icon-action-white icon-action-white-ic_visibility_white_24dp"></div>
+                    Ambieye
+                </span>
+            </h2>
+            <div flex></div>
+            <div flex class="profile" ng-hide="!auth.isAuth">
             </div>
         </div>
-        <div class="row"><input class="form-control margin-top-5" type="text" ng-model="username" placeholder="Username" /></div>
-        <div class="row"><input class="form-control margin-top-5" type="password" ng-model="password" placeholder="Password" /></div>
-        <div class="row"><input class="btn btn-primary margin-top-5" type="submit" value="Sign In" /></div>
-    </div>
-
-</form>
-
-<div class="row">
-    <div class="col-md-3">
-        <div class="row alert alert-danger margin-top-5" ng-show="showMessage">{{message}}</div>
-    </div>
-</div>
+    </md-toolbar>
+    <md-content class="md-padding">
+        @*<h4 class="">
+            Sign-in
+        </h4>*@
+        <section class="socialLoginForm">
+            @Html.Partial("_ExternalLoginsListPartial")
+        </section>
+    </md-content>
+    
+    @*<form name="signInForm" ng-submit="signIn()" class="row" style="padding: 0 20px 20px;" ng-model-options="{ debounce: 250 }">
+        <md-list>
+            <md-item>
+                <md-progress-circular md-mode="indeterminate" ng-show="loading"></md-progress-circular>
+                <div class="row alert alert-danger margin-top-5" ng-show="showMessage">{{message}}</div>
+                <div class="row">
+                    <div class="alert alert-success" ng-show="message == 'ended'">
+                        <h4>Due to inactivity, you were logged out automatically.</h4>
+                    </div>
+                </div>
+            </md-item>
+            <md-item>
+                <md-text-float label="Email address" ng-model="user.username" class="long" required></md-text-float>
+            </md-item>
+            <md-item>
+                <md-text-float type="password" label="Password" ng-model="user.password" class="long" required></md-text-float>
+            </md-item>
+            <md-item>
+                <md-button class="md-primary md-raised submit" type="submit">Sign in</md-button>
+            </md-item>
+        </md-list>
+    </form>*@
+    <section layout="row" flex></section>
+</md-content>
+               

@@ -5,26 +5,11 @@
 @using Microsoft.AspNet.Identity.Owin;
 
 
-<div layout="column" layout-fill >
-    <md-sidenav class="md-sidenav-left md-whiteframe-z2" ng-hide md-component-id="left">
-        <md-toolbar class="md-theme-indigo md-tall  md-toolbar-tools-bottom">
-            <h1 class="md-toolbar-tools">Left side</h1>
-        </md-toolbar>
-        <md-content class="md-padding" ng-controller="LeftCtrl">
-            <md-button ng-click="close()" class="md-primary" hide-gt-md>
-                Close Sidenav Left
-            </md-button>
-            <p hide-md show-gt-md>
-                This sidenav is locked open on your device. To go back to the default behavior,
-                narrow your display.
-            </p>
+<div layout="column" layout-fill class="md-whiteframe-z2 webapp">
 
-            <md-button ng-href="#/home">Home</md-button>
-            <md-button ng-href="#/todomanager">Todo</md-button>
-        </md-content>
-    </md-sidenav>
 
-    <md-content flex>
+    <!-- main content -->
+    <md-content flex class="home-content">
         <md-toolbar md-scroll-shrink>
             <div class="md-toolbar-tools">
                 <md-button class="menu-icon" aria-label="Profile">
@@ -35,44 +20,30 @@
                         <div class="icon-navigation-white icon-navigation-white-ic_menu_white_24dp"></div>
                     </div>
                 </md-button>
-                <h2 class="">
-                    <span>
-                        <div class="logo-icon icon-action-white icon-action-white-ic_visibility_white_24dp"></div>
-                        Ambieye
-                    </span>
+                <h2 class="logo">
+                    <div class="logo-icon icon-action-white icon-action-white-ic_visibility_white_24dp"></div>
+                    Ambieye
                 </h2>
                 <div flex></div>
-
-                <div class="icon-action-white icon-action-black-ic_search_black_24dp"></div>
-
-                @{
-                    //Context.GetOwinContext().Request.User.Identity.GetUserId();
-                    //var UserManager = new UserManager<User>
-                    //    (new Microsoft.AspNet.Identity.EntityFramework.UserStore<User>(new DBContext()));
-                    //var user = UserManager.FindById(User.Identity.GetUserId());   
-                }
-
-                        @*@Html.Partial("_ProfilePartial", user);*@
-                <div flex>
-                    <img ng-src="{{auth.image}}" class="profile-img" alt="Profile image" ng-cloak />
-                    <div class="name truncate">{{auth.name}}</div>
-
-                    <a class="account" ng-hide="!auth.isAuth" href="#/profile" ng-click="toggleRight()">
-                        Profile
-                    </a>
-                    <a class="icon-action-white icon-action-white-ic_account_circle_white_24dp" ng-hide="auth.isAuth" href="#/profile" ng-click="toggleRight()">
-                    </a>
-                    Register
+                <div flex class="profile" ng-hide="!auth.isAuth">
+                    <md-button ng-click="toggleRight()">
+                        <div class="profile-link">
+                            <img ng-src="{{auth.image}}" class="profile-img" alt="Profile image" ng-cloak />
+                            <div class="name truncate">{{auth.name}}</div>
+                            <img class="icon-action-white icon-action-white-ic_search_black_24dp"></img>
+                        </div>
+                    </md-button>
                 </div>
-                <md-button class="menu-icon" aria-label="Profile" ng-click="toggleRight()">
-                    <div class="icon-navigation-white icon-navigation-white-ic_more_vert_white_24dp"></div>
-                </md-button>
-
-                <div class="container">
-                    <span class="fontawesome-github-alt"></span>
+                <div flex class="profile register-link" ng-hide="auth.isAuth">
+                    <md-button ng-click="toggleRight()" ng-hide="auth.isAuth">
+                        <img class="icon-action-white icon-action-white-ic_account_circle_white_24dp"></img>
+                        <div class="name truncate">Register</div>
+                    </md-button>
                 </div>
-
             </div>
+            @*<md-button class="menu-icon" aria-label="Profile" ng-click="toggleRight()">
+                    <div class="icon-navigation-white icon-navigation-white-ic_more_vert_white_24dp"></div>
+                </md-button>*@
 
             @*<form class="navbar-form navbar-left">
                     <input type="text" class="form-control col-lg-8" placeholder="Search">
@@ -90,122 +61,144 @@
                 Item Three
             </md-tab>
         </md-tabs>
+        <!-- left column -->
+        <md-sidenav class="md-sidenav-left md-whiteframe-z2" ng-hide md-component-id="left">
+            <md-toolbar class="md-theme-indigo md-tall  md-toolbar-tools-bottom">
+                <h1 class="md-toolbar-tools">Left side</h1>
+            </md-toolbar>
+            <md-content class="md-padding" ng-controller="LeftCtrl">
+                <md-button ng-click="close()" class="md-primary" hide-gt-md>
+                    Close Sidenav Left
+                </md-button>
+                <p hide-md show-gt-md>
+                    This sidenav is locked open on your device. To go back to the default behavior,
+                    narrow your display.
+                </p>
+
+                <md-button ng-href="#/home">Home</md-button>
+                <md-button ng-href="#/todomanager">Todo</md-button>
+            </md-content>
+        </md-sidenav>
 
         <ng-switch on="data.selectedIndex" class="tabpanel-container">
-            <div role="tabpanel"
-                 class="md-padding"
-                 id="tab1-content"
-                 aria-labelledby="tab1"
-                 ng-switch-when="0"
-                 md-swipe-left="next()"
-                 md-swipe-right="previous()">
-                View for Item #1<br />
-                
 
 
-                <div ng-init="items=[1,2,3,4,5,6,7,8,9]">
-                    <input placeholder="Filter Repeat Items..." ng-model="f" />
-                    <div ng-repeat="item in items | filter:f" class="repeat-animation">
-                        {{ item }}
+            <md-content flex 
+                        class="md-padding" 
+                        role="tabpanel"
+                        id="tab1-content"
+                        aria-labelledby="tab1"
+                        ng-switch-when="0"
+                        md-swipe-left="next()"
+                        md-swipe-right="previous()">
+                <div layout="column" layout-fill layout-align="left center">
+                        <h2>Home</h2>
+                    <md-card>
+                        <h2>Paracosm</h2>
+                        <p>
+                            The titles of Washed Out's breakthrough song and the first single from Paracosm share the * two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+                        </p>
+                    </md-card>
+
+                        @*<div class="view-container">
+                <div ng-view class="reveal-animation"></div>
+            </div>*@
+                        @*<p>
+                the Web Api is used to expose services to potential clients, while angular is used for all frontend operations.
+                You will notice there are several other additions, such as jQuery and Bootstrap.
+                jQuery was added to support Bootstrap.
+                There are other bootstrap options, which play nice with Angular; but I choose regular bootstrap.
+            </p>
+            <p>
+                A change has been made to WebApiConfig.cs, which changes all the routing for services.
+                By default, services are identified by the parameters they accept.
+                I modified this to identity services based on their name and their parameters.
+            </p>
+            <p>
+                AppController.cs is used to give partial views upon request.
+                Such as App/Home will give the home page, and it will return the home.cshtml.
+                home.cshtml is a partial page, and it will be inserted in the ngView when returned from the server.
+            </p>*@
+
+</div>
+                </md-content>
+
+            <md-content role="tabpanel"
+                        id="tab2-content"
+                        aria-labelledby="tab2"
+                        ng-switch-when="1"
+                        md-swipe-left="next()"
+                        md-swipe-right="previous()">
+
+                <div layout="column" layout-fill layout-align="left center">
+
+                    View for {{data.secondLabel}}<br />
+                    data.selectedIndex = 1
+
+                    <p>
+                        The left sidenav will 'lock open' on a medium (>=960px wide) device.
+
+                    </p>
+                    <div>
+                        <md-button ng-click="toggleLeft()" class="md-primary" hide-gt-md>
+                            Toggle left
+                        </md-button>
+                    </div>
+                    <div>
+                        <md-button ng-click="toggleRight()" class="md-primary">
+                            Toggle right
+                        </md-button>
                     </div>
                 </div>
+            </md-content>
+                    <md-content role="tabpanel"
+                         id="tab3-content"
+                         aria-labelledby="tab3"
+                         ng-switch-when="2"
+                         md-swipe-left="next()"
+                         md-swipe-right="previous()">
 
-                <h2>Home</h2>
-
-                @*<div class="view-container">
-                    <div ng-view class="reveal-animation"></div>
-                </div>*@
-                    <p>
-                        the Web Api is used to expose services to potential clients, while angular is used for all frontend operations.
-                        You will notice there are several other additions, such as jQuery and Bootstrap.
-                        jQuery was added to support Bootstrap.
-                        There are other bootstrap options, which play nice with Angular; but I choose regular bootstrap.
-                    </p>
-                    <p>
-                        A change has been made to WebApiConfig.cs, which changes all the routing for services.
-                        By default, services are identified by the parameters they accept.
-                        I modified this to identity services based on their name and their parameters.
-                    </p>
-                    <p>
-                        AppController.cs is used to give partial views upon request.
-                        Such as App/Home will give the home page, and it will return the home.cshtml.
-                        home.cshtml is a partial page, and it will be inserted in the ngView when returned from the server.
-                    </p>
-
-                </div>
-            <div role="tabpanel"
-                 id="tab2-content"
-                 aria-labelledby="tab2"
-                 ng-switch-when="1"
-                 md-swipe-left="next()"
-                 md-swipe-right="previous()">
-
-                View for {{data.secondLabel}}<br />
-                data.selectedIndex = 1
-
-                <p>
-                    The left sidenav will 'lock open' on a medium (>=960px wide) device.
-
-                </p>
-                <div>
-                    <md-button ng-click="toggleLeft()" class="md-primary" hide-gt-md>
-                        Toggle left
-                    </md-button>
-                </div>
-                <div>
-                    <md-button ng-click="toggleRight()" class="md-primary">
-                        Toggle right
-                    </md-button>
-                </div>
-
-            </div>
-            <div role="tabpanel"
-                 id="tab3-content"
-                 aria-labelledby="tab3"
-                 ng-switch-when="2"
-                 md-swipe-left="next()"
-                 md-swipe-right="previous()">
-                View for Item #3<br />
-                data.selectedIndex = 2
+                        <div layout="column" layout-fill layout-align="left center">
+                            View for Item #3<br />
+                            data.selectedIndex = 2
 
 
-                <h3>Contact Info</h3>
-                <p>Questions or suggestions can be emailed to contact@dahlnfarnes.com</p>
+                            <h3>Contact Info</h3>
+                            <p>Questions or suggestions can be emailed to contact@dahlnfarnes.com</p>
 
 
+                        </div>
+                    </md-content>
+                </ng-switch>
+                <!-- right side -->
+                <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+                    <md-toolbar class="md-theme-light md-toolbar-tools-bottom">
+                        <h1 class="md-toolbar-tools">Sidenav Right</h1>
+                    </md-toolbar>
+                    <md-content ng-controller="RightCtrl" class="md-padding">
+                        <md-button ng-click="close()" class="md-primary">
+                            Close Sidenav Right
+                        </md-button>
 
-            </div>
-        </ng-switch>
+                        <section id="socialLoginForm">
+                            @Html.Partial("_ExternalLoginsListPartial")
+                        </section>
 
-        @*<div layout="column" layout-fill layout-align="center center">
+                        <md-button ng-href="#/signin" ng-show="!loggedIn">Signin</md-button>
 
-            </div>*@
-    </md-content>
-    <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
-        <md-toolbar class="md-theme-light md-tall  md-toolbar-tools-bottom">
-            <h1 class="md-toolbar-tools">Sidenav Right</h1>
-        </md-toolbar>
-        <md-content ng-controller="RightCtrl" class="md-padding">
-            <md-button ng-click="close()" class="md-primary">
-                Close Sidenav Right
-            </md-button>
+                        <div ng-show="loggedIn">
+                            {{username}} <b class="caret"></b>
 
-            <section id="socialLoginForm">
-                @Html.Partial("_ExternalLoginsListPartial")
-            </section>
-
-            <md-button ng-href="#/signin" ng-show="!loggedIn">Signin</md-button>
-
-            <div ng-show="loggedIn">
-                {{username}} <b class="caret"></b>
-
-                <md-button ng-href="#/managelogins">Manage logins</md-button>
-                <md-button ng-href="#/settings">Settings</md-button>
-                <md-button ng-click="logout()">Logout</md-button>
-            </div>
+                            <md-button ng-href="#/managelogins">Manage logins</md-button>
+                            <md-button ng-href="#/settings">Settings</md-button>
+                            <md-button ng-click="logout()">Logout</md-button>
+                        </div>
+                    </md-content>
+                </md-sidenav>
         </md-content>
-    </md-sidenav>
-    <section layout="row" flex></section>
+
+
+        <section layout="row" flex></section>
 </div>
 
 
