@@ -19,15 +19,25 @@
 
         <div class="social-logins" layout="column">
             <div style="height: 60px;">
-                <md-button flex layout="row" class="flat-shadow-facebook social-login flat-shadow " aria-label="Login with Facebook" data-ng-click="authExternalProvider('Facebook')">
+                <md-button flex layout="row" 
+                           class="flat-shadow-facebook social-login flat-shadow "
+                           aria-label="Login with Facebook"
+                           data-ng-click="authExternalProvider('Facebook')"
+                           ng-disabled="auth.facebooklink != ''">
                     <i flex class="fa fa-facebook"></i>
-                    <span>Connect with Facebook</span>
+                    <span flex ng-show="auth.facebooklink == ''">Connect with Facebook</span>
+                    <span flex ng-show="auth.facebooklink != ''">Connected with Facebook</span>
                 </md-button>
             </div>
             <div style="height: 60px;">
-                <md-button flex layout="row" class="flat-shadow-google-plus social-login flat-shadow " aria-label="Login with Google" data-ng-click="authExternalProvider('Google')">
+                <md-button flex layout="row"
+                           class="flat-shadow-google-plus social-login flat-shadow "
+                           aria-label="Login with Google"
+                           data-ng-click="authExternalProvider('Google')"
+                           ng-disabled="auth.googlelink != ''">
                     <i flex class="fa fa-google"></i>
-                    <span flex>Connect with Google</span>
+                    <span flex ng-show="auth.googlelink == ''">Connect with Google</span>
+                    <span flex ng-show="auth.googlelink != ''">Connected with Google</span>
                 </md-button>
             </div>
         </div>

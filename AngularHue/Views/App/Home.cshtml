@@ -180,17 +180,17 @@
                             Close Sidenav Right
                         </md-button>
 
-                        <section id="socialLoginForm">
+                        <section id="socialLoginForm" ng-controller="signInCtrl">
                             @Html.Partial("_ExternalLoginsListPartial")
                         </section>
 
-                        <md-button ng-href="#/signin" ng-show="!loggedIn">Signin</md-button>
+                        @*<md-button ng-href="#/signin" ng-show="!loggedIn">Signin</md-button>*@
 
-                        <div ng-show="loggedIn">
-                            {{username}} <b class="caret"></b>
+                        <div ng-show="auth.isAuth">
+                            @*{{username}} <b class="caret"></b>
 
                             <md-button ng-href="#/managelogins">Manage logins</md-button>
-                            <md-button ng-href="#/settings">Settings</md-button>
+                            <md-button ng-href="#/settings">Settings</md-button>*@
                             <md-button ng-click="logout()">Logout</md-button>
                         </div>
                     </md-content>

@@ -26,9 +26,14 @@
         display: inline-block;
     }
 
+    .social-login.md-button.md-default-theme[disabled],
+    .social-login.md-button.md-default-theme.md-raised[disabled],
+    .social-login.md-button.md-default-theme.md-fab[disabled] {
+
+    }
+
 .social-login.md-button.md-default-theme:not([disabled]):hover,
-.social-login.md-button.md-default-theme:not([disabled]):focus,
-button.flat-shadow-facebook:hover {
+.social-login.md-button.md-default-theme:not([disabled]):focus {
         background-color: #4864b1;
         /*background-image: -webkit-linear-gradient(#4864b1, #1f4284);
         background-image: linear-gradient(#4864b1, #1f4284);*/
@@ -58,7 +63,7 @@ button.flat-shadow-facebook:hover {
         vertical-align: 5px;
     }
 
-.flat-shadow-twitter {
+.flat-shadow-twitter:not([disabled]) {
 	background-color: #62AFD1;
 	text-shadow: 
 		0px 0px #5393AA,
@@ -213,7 +218,7 @@ button.flat-shadow-facebook:hover {
 		149px 149px #5393AA,
 		150px 150px #5393AA;	
 }
-.flat-shadow-google-plus  {
+.flat-shadow-google-plus:not([disabled])  {
     background-color: #C75541;
 	text-shadow: 
 		0px 0px #993429,
@@ -369,8 +374,8 @@ button.flat-shadow-facebook:hover {
 		150px 150px #993429;
 	}
 
-.flat-shadow-facebook,
-.flat-shadow-linkedin {
+.flat-shadow-facebook:not([disabled]),
+.flat-shadow-linkedin:not([disabled]) {
     /*background-color: #457E9B;
     background-image: linear-gradient(#45b1e8,#3097de);*/
     background-color: #1f4284;
@@ -528,7 +533,7 @@ button.flat-shadow-facebook:hover {
 		149px 149px #19356a,
 		150px 150px #19356a;
 }
-.flat-shadow-pinterest {
+.flat-shadow-pinterest:not([disabled]) {
 	background-color: #C21F25;
 	text-shadow: 
 		0px 0px #9B191E,
@@ -683,7 +688,7 @@ button.flat-shadow-facebook:hover {
 		149px 149px #9B191E,
 		150px 150px #9B191E;
 }
-.flat-shadow-github-alt {
+.flat-shadow-github-alt:not([disabled]) {
 	background-color: #616A6D;
 	text-shadow: 
 		0px 0px #474F51,

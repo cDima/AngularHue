@@ -11,13 +11,26 @@ namespace AngularHue
 {
     public static class WebApiConfig
     {
+        public static HttpConfiguration Configuration 
+        {
+            get
+            {
+                var conf = new HttpConfiguration();
+                Register(conf);
+                return conf;
+            }
+        }
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
 
             config.SuppressDefaultHostAuthentication();
-            //config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+
+            //config.Filters.Add(new HostAuthenticationFilter(new OAuthBearerAuthenticationOptions().AuthenticationType));
+            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            
+            //config.Filters.Add(new HostAuthenticationFilter(Startup.OAuthBearerOptions.AuthenticationType));
 
             // Web API routes
             config.MapHttpAttributeRoutes();

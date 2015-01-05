@@ -69,7 +69,9 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
 
 app.run(['$http', '$cookies', '$cookieStore', function ($http, $cookies, $cookieStore) {
     //If a token exists in the cookie, load it after the app is loaded, so that the application can maintain the authenticated state.
-    $http.defaults.headers.common.Authorization = 'Bearer ' + $cookieStore.get('_Token');
+    if ($cookieStore.get('_Token') !== null) {
+        $http.defaults.headers.common.Authorization = 'Bearer ' + $cookieStore.get('_Token');
+    }
     $http.defaults.headers.common.RefreshToken = $cookieStore.get('_RefreshToken');
 }]);
 
@@ -82,8 +84,8 @@ app.run(['$http', '$cookies', '$cookieStore', function ($http, $cookies, $cookie
 //Get username on each page
 //Get updated token on page change.
 //Logout available on each page.
-app.run(['$rootScope', '$http', '$cookies', '$cookieStore', 'ngProgress',
-    function ($rootScope, $http, $cookies, $cookieStore, ngProgress) {
+app.run(['$rootScope', '$http', '$cookies', '$cookieStore', 'ngProgress', 'authService',
+function ($rootScope, $http, $cookies, $cookieStore, ngProgress, authService) {
 
     $rootScope.logout = function () {
         
@@ -91,19 +93,23 @@ app.run(['$rootScope', '$http', '$cookies', '$cookieStore', 'ngProgress',
         $http.post('/api/Account/Logout')
             .success(function (data, status, headers, config) {
                 ngProgress.complete();
+                authService.logOut();
                 $http.defaults.headers.common.Authorization = null;
                 $http.defaults.headers.common.RefreshToken = null;
                 $cookieStore.remove('_Token');
                 $cookieStore.remove('_RefreshToken');
                 $rootScope.username = '';
                 $rootScope.loggedIn = false;
-                window.location = '#/signin';
+                //window.location = '#/signin';
             });
 
     }
+    
+    $rootScope.login = function () {
+    }
 
     $rootScope.$on('$locationChangeSuccess', function (event) {
-        if ($http.defaults.headers.common.RefreshToken != null) {
+        if (false && $http.defaults.headers.common.RefreshToken != null) {
             var params = "grant_type=refresh_token&refresh_token=" + $http.defaults.headers.common.RefreshToken;
             ngProgress.start();
             $http({

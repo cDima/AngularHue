@@ -91,6 +91,15 @@ namespace AngularHue.Controllers
         }
 
         // POST api/Account/Logout
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
+        [Route("Protected")]
+        //[Suppres]
+        public IHttpActionResult Protected()
+        {
+            return Ok();
+        }
+
+        // POST api/Account/Logout
         [Route("Logout")]
         public IHttpActionResult Logout()
         {
@@ -323,9 +332,11 @@ namespace AngularHue.Controllers
                    OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
+                //ClaimsIdentity barearIdentity = await user.GenerateUserIdentityAsync(UserManager, DefaultAuthenticationTypes.ExternalBearer);
 
                 AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName);
-                Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
+                Authentication.SignIn(properties, oAuthIdentity, cookieIdentity//, barearIdentity
+                    );
             }
             else
             {

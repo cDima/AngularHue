@@ -21,8 +21,10 @@
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
-    <NuGetPackageImportStamp>cf68f29e</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>bd4acfe7</NuGetPackageImportStamp>
     <ApplicationInsightsResourceId>/subscriptions/e8197767-1767-4a9c-b667-8c0b25878f55/resourcegroups/Default-ApplicationInsights-CentralUS/providers/microsoft.insights/components/AngularHue</ApplicationInsightsResourceId>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,17 +50,19 @@
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Glimpse.AspNet">
-      <HintPath>..\packages\Glimpse.AspNet.1.8.0\lib\net45\Glimpse.AspNet.dll</HintPath>
+    <Reference Include="Glimpse.AspNet, Version=1.9.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Glimpse.AspNet.1.9.2\lib\net45\Glimpse.AspNet.dll</HintPath>
     </Reference>
-    <Reference Include="Glimpse.Core">
-      <HintPath>..\packages\Glimpse.1.8.2\lib\net45\Glimpse.Core.dll</HintPath>
+    <Reference Include="Glimpse.Core, Version=1.8.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Glimpse.1.8.6\lib\net45\Glimpse.Core.dll</HintPath>
     </Reference>
     <Reference Include="Glimpse.Mvc5">
       <HintPath>..\packages\Glimpse.Mvc5.1.5.3\lib\net45\Glimpse.Mvc5.dll</HintPath>
@@ -99,9 +103,20 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Owin.Cors">
+      <HintPath>..\packages\Microsoft.Owin.Cors.3.0.0\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.HttpListener, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Host.HttpListener.3.0.0\lib\net45\Microsoft.Owin.Host.HttpListener.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Hosting, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Hosting.3.0.0\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -132,7 +147,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.7\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SendGrid.SmtpApi">
       <HintPath>..\packages\SendGrid.SmtpApi.1.1.3\lib\net40\SendGrid.SmtpApi.dll</HintPath>
@@ -147,6 +162,9 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Cors">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -273,7 +291,6 @@
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Providers\SimpleRefreshTokenProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
-    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\app\app.js" />
@@ -921,11 +938,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
-  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
-    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
-    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
-  </Target>
   <Import Project="..\packages\Microsoft.ApplicationInsights.0.12.0-build17386\tools\net40\Microsoft.ApplicationInsights.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.0.12.0-build17386\tools\net40\Microsoft.ApplicationInsights.targets')" />
   <Target Name="EnsureApplicationInsightsImported" BeforeTargets="BeforeBuild" Condition="'$(ApplicationInsightsImported)' == ''">
     <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.0.12.0-build17386\tools\net40\Microsoft.ApplicationInsights.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." />
@@ -936,7 +948,11 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Diagnostics.Instrumentation.Extensions.Intercept.0.12.0-build02810\build\Microsoft.Diagnostics.Instrumentation.Extensions.Intercept.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Diagnostics.Instrumentation.Extensions.Intercept.0.12.0-build02810\build\Microsoft.Diagnostics.Instrumentation.Extensions.Intercept.props'))" />
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
   </Target>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

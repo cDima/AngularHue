@@ -1,5 +1,6 @@
 ﻿'use strict';
-app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSettings', function ($http, $q, localStorageService, ngAuthSettings) {
+app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSettings', '$cookieStore',
+    function ($http, $q, localStorageService, ngAuthSettings, $cookieStore) {
 
     var serviceBase = ngAuthSettings.apiServiceBaseUri;
     var authServiceFactory = {};
@@ -111,6 +112,23 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
     };
 
+    var _save = function (response) {
+
+        _authentication.token = response.access_token;
+        _authentication.userName = response.userName;
+        _authentication.refreshToken = response.refresh_token || '';
+        _authentication.useRefreshTokens = false;
+        _authentication.isAuth = true;
+        _assignSocialData(response, _authentication);
+        localStorageService.set('authorizationData', _authentication);
+        /* save to cookies? */
+        $cookieStore.put('_Token', _authentication.token);
+        $cookieStore.put('_RefreshToken', _authentication.refreshToken);
+
+        $http.defaults.headers.common.Authorization = (_authentication.token == '') ? '' : ('Bearer ' + _authentication.token);
+        $http.defaults.headers.common.RefreshToken = _authentication.refreshToken;
+    }
+
     var _refreshToken = function () {
         var deferred = $q.defer();
 
@@ -125,14 +143,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                 localStorageService.remove('authorizationData');
 
                 $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
-
-                    var obj = {
-                        token: response.access_token,
-                        userName: response.userName,
-                        refreshToken: response.refresh_token, useRefreshTokens: true
-                    };
-                    _assignSocialData(response, obj);
-                    localStorageService.set('authorizationData', obj);
+                    _save(response);
 
                     deferred.resolve(response);
 
@@ -150,17 +161,13 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
         var deferred = $q.defer();
 
-        $http.get(serviceBase + 'api/account/ObtainLocalAccessToken', { params: { provider: externalData.provider, externalAccessToken: externalData.externalAccessToken } }).success(function (response) {
-
-            var obj = { token: response.access_token, userName: response.userName, refreshToken: "", useRefreshTokens: false };
-            _assignSocialData(response, obj);
-
-            localStorageService.set('authorizationData', obj);
-
-            _authentication.isAuth = true;
-            _authentication.userName = response.userName;
-            _authentication.useRefreshTokens = false;
-            _assignSocialData(response, _authentication);
+        $http.get(serviceBase + 'api/account/ObtainLocalAccessToken', {
+            params: {
+                provider: externalData.provider,
+                externalAccessToken: externalData.externalAccessToken
+            }
+        }).success(function (response) {
+            _save(response);
 
             deferred.resolve(response);
 
@@ -179,15 +186,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
         $http.post(serviceBase + 'api/account/registerexternal', registerExternalData).success(function (response) {
 
-
-            var obj = { token: response.access_token, userName: response.userName, refreshToken: "", useRefreshTokens: false };
-            _assignSocialData(response, obj);
-            localStorageService.set('authorizationData', obj);
-
-            _authentication.isAuth = true;
-            _authentication.userName = response.userName;
-            _assignSocialData(response, _authentication);
-            _authentication.useRefreshTokens = false;
+            _save(response);
 
             deferred.resolve(response);
 
