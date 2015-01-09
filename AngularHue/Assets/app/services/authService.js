@@ -22,7 +22,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         name: "",
         email: "",
         image: "",
-        facebooklink: "",
+        facebooklink: "", 
         googlelink: "",
         externalAccessToken: ""
     };

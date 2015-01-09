@@ -27,6 +27,10 @@ namespace AngularHue
 
             config.SuppressDefaultHostAuthentication();
 
+            // To disable tracing in your application, please comment out or remove the following line of code
+            // For more information, refer to: http://www.asp.net/web-api
+            config.EnableSystemDiagnosticsTracing();
+
             //config.Filters.Add(new HostAuthenticationFilter(new OAuthBearerAuthenticationOptions().AuthenticationType));
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
             

@@ -39,17 +39,22 @@ namespace AngularHue
 
         public void Configuration(IAppBuilder app)
         {
+            // Owin oAuth configuration:
             ConfigureAuth(app);
 
             // MVC configuration: 
             AreaRegistration.RegisterAllAreas();
 
-            // Http configuration: 
+            // WebApi configuration: 
 
             HttpConfiguration config = new HttpConfiguration();
             WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
+
+            // SignalR config:
+            app.MapSignalR();
+
             // db update
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<DBContext, Migrations.Configuration>());
 

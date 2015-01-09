@@ -1,0 +1,23 @@
+todo
+
+
+
+- add instagram, microsoft, yahoo support ~200m+ users, emails auto confirmed (http://www.ebizmba.com/articles/social-networking-websites), pintrest != oauth
+- twitter needs manual email input page, sendgrid integration, and confirmation link work.
+- web sockets support: 
+	- connect to main server, reconnect on fails, find bridge, await commands.
+- db:
+	- list of active agents connected under a single account
+	- list of bridges (ip+mac) found by the agents
+	- list of lamps
+
+- material design color grid
+- introduce hue.js and bridge discovery
+- tabs copied from lightswitch.
+- social buttons counters.
+
+- landing page
+
+roadmap:
+- introduce animated favicon.js https://github.com/ejci/favico.js/tree/master/example-angular/
+- music https://github.com/juhl/html5-audio-fft-equalizer

@@ -7,9 +7,10 @@
     'register',
     'ngProgress',
     'LocalStorageModule',
-    'todoManager'
+    'todoManager',
+    'HueHub',
+    'HueWeb'
 ]);
-
 
 var serviceBase = 'http://localhost:33651/';
 app.constant('ngAuthSettings', {
@@ -17,9 +18,10 @@ app.constant('ngAuthSettings', {
     clientId: 'self'
 });
 
-        
-
-app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $routeProvider, $httpProvider) {
+app.config(['$provide', '$routeProvider', '$httpProvider',
+    //'$mdThemingProvider',
+    function ($provide, $routeProvider, $httpProvider//, $mdThemingProvider
+        ) {
     
     // Ignore Template Request errors if a requested page was not found or unauthorized.  
     // The GET operation could still show up in the browser debugger, but it shouldn't show a $compile:tpload error.
@@ -49,6 +51,10 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
         templateUrl: 'hue/App/Home',
         controller: 'homeCtrl'
     });
+    $routeProvider.when('/hueweb', {
+        templateUrl: 'hue/App/Home',
+        controller: 'homeCtrl'
+    });
     $routeProvider.when('/register', {
         templateUrl: 'hue/App/Register',
         controller: 'registerCtrl'
@@ -64,7 +70,11 @@ app.config(['$provide', '$routeProvider', '$httpProvider', function ($provide, $
     
     $routeProvider.otherwise({
         redirectTo: '/home'
-    });    
+    });
+
+        // default theme
+    //$mdThemingProvider.theme('lightblueTheme');
+        //$mdThemingProvider.alwaysWatchTheme(true);
 }]);
 
 app.run(['$http', '$cookies', '$cookieStore', function ($http, $cookies, $cookieStore) {
@@ -150,17 +160,3 @@ function ($rootScope, $http, $cookies, $cookieStore, ngProgress, authService) {
         }
     });
 }]);
-
-app.controller('home1Ctrl', function ($scope) {
-    $scope.data = {
-        selectedIndex: 0,
-        secondLocked: true,
-        secondLabel: "Item Two"
-    };
-    $scope.next = function () {
-        $scope.data.selectedIndex = Math.min($scope.data.selectedIndex + 1, 2);
-    };
-    $scope.previous = function () {
-        $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
-    };
-});

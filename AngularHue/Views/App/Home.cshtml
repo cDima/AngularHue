@@ -20,10 +20,13 @@
                         <div class="icon-navigation-white icon-navigation-white-ic_menu_white_24dp"></div>
                     </div>
                 </md-button>
-                <h2 class="logo">
-                    <div class="logo-icon icon-action-white icon-action-white-ic_visibility_white_24dp"></div>
-                    Ambieye
-                </h2>
+                <div flex>
+                    <h2 class="logo">
+                        <div class="logo-icon icon-action-white icon-action-white-ic_visibility_white_24dp"></div>
+                        Ambieye
+                    </h2>
+                    
+                </div>
                 <div flex></div>
                 <div flex class="profile" ng-hide="!auth.isAuth">
                     <md-button ng-click="toggleRight()">
@@ -52,18 +55,18 @@
 
         <md-tabs class="md-default" md-selected="data.selectedIndex">
             <md-tab id="tab1" aria-controls="tab1-content">
-                Item One
+                Setup
             </md-tab>
             <md-tab id="tab2" aria-controls="tab2-content" ng-disabled="data.secondLocked">
-                {{data.secondLabel}}
+                Agent Devices
             </md-tab>
             <md-tab id="tab3" aria-controls="tab3-content">
-                Item Three
+                Color Palettes
             </md-tab>
         </md-tabs>
         <!-- left column -->
         <md-sidenav class="md-sidenav-left md-whiteframe-z2" ng-hide md-component-id="left">
-            <md-toolbar class="md-theme-indigo md-tall  md-toolbar-tools-bottom">
+            <md-toolbar class="md-tall  md-toolbar-tools-bottom">
                 <h1 class="md-toolbar-tools">Left side</h1>
             </md-toolbar>
             <md-content class="md-padding" ng-controller="LeftCtrl">
@@ -83,45 +86,37 @@
         <ng-switch on="data.selectedIndex" class="tabpanel-container">
 
 
-            <md-content flex 
-                        class="md-padding" 
+            <md-content flex
+                        class="md-padding"
                         role="tabpanel"
                         id="tab1-content"
                         aria-labelledby="tab1"
                         ng-switch-when="0"
                         md-swipe-left="next()"
-                        md-swipe-right="previous()">
-                <div layout="column" layout-fill layout-align="left center">
-                        <h2>Home</h2>
+                        md-swipe-right="previous()"
+                        layout="horizontal" 
+                        layout-align="center"
+                        >
+                <div layout="horizontal" layout-wrap="wrap" layout-align="left center" class="hueweb" ng-controller="HueWeb">
+                    @Html.Partial("_HueWeb")
                     <md-card>
                         <h2>Paracosm</h2>
                         <p>
                             The titles of Washed Out's breakthrough song and the first single from Paracosm share the * two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
                         </p>
                     </md-card>
-
-                        @*<div class="view-container">
-                <div ng-view class="reveal-animation"></div>
-            </div>*@
-                        @*<p>
-                the Web Api is used to expose services to potential clients, while angular is used for all frontend operations.
-                You will notice there are several other additions, such as jQuery and Bootstrap.
-                jQuery was added to support Bootstrap.
-                There are other bootstrap options, which play nice with Angular; but I choose regular bootstrap.
-            </p>
-            <p>
-                A change has been made to WebApiConfig.cs, which changes all the routing for services.
-                By default, services are identified by the parameters they accept.
-                I modified this to identity services based on their name and their parameters.
-            </p>
-            <p>
-                AppController.cs is used to give partial views upon request.
-                Such as App/Home will give the home page, and it will return the home.cshtml.
-                home.cshtml is a partial page, and it will be inserted in the ngView when returned from the server.
-            </p>*@
-
-</div>
-                </md-content>
+                </div>
+                <md-list id="content">
+                    <div ng-repeat="chunk in ::chunks">
+                        <p ng-if="chunk.divider">{{chunk.title}}</p>
+                        <md-card ng-if="!chunk.expanded && !chunk.divider" ng-click="chunk.expanded = !chunk.expanded" ng-mouseover="hover = true" ng-mouseout="hover = false">
+                            <md-item layout="horizontal">
+                                <!-- CONTENT COMES HERE -->
+                            </md-item>
+                        </md-card>
+                    </div>
+                </md-list>
+            </md-content>
 
             <md-content role="tabpanel"
                         id="tab2-content"
@@ -131,6 +126,8 @@
                         md-swipe-right="previous()">
 
                 <div layout="column" layout-fill layout-align="left center">
+
+                    <div>Connected: ({{ hub.connected }})</div>
 
                     View for {{data.secondLabel}}<br />
                     data.selectedIndex = 1
@@ -159,20 +156,15 @@
                          md-swipe-right="previous()">
 
                         <div layout="column" layout-fill layout-align="left center">
-                            View for Item #3<br />
-                            data.selectedIndex = 2
-
-
-                            <h3>Contact Info</h3>
-                            <p>Questions or suggestions can be emailed to contact@dahlnfarnes.com</p>
-
+                            
+                            @Html.Partial("_ColorPalettes")
 
                         </div>
                     </md-content>
                 </ng-switch>
                 <!-- right side -->
                 <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
-                    <md-toolbar class="md-theme-light md-toolbar-tools-bottom">
+                    <md-toolbar class="md-toolbar-tools-bottom">
                         <h1 class="md-toolbar-tools">Sidenav Right</h1>
                     </md-toolbar>
                     <md-content ng-controller="RightCtrl" class="md-padding">

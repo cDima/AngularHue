@@ -1,5 +1,5 @@
 ﻿body {
-    background: #375369 no-repeat center center fixed; 
+    background: #375369 no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -8,9 +8,10 @@
 }
 
 @media screen and (min-width: 1200px) {
-    body{
+    body {
         padding-top: 80px;
     }
+
     .main-container {
         max-width: 1200px;
     }
@@ -21,16 +22,18 @@
         padding-left: 60px;
     }
 }
-.signin {    
+
+.signin {
     margin: 0 auto;
     height: 300px;
     width: 300px;
     border-radius: 7px;
 }
-.signin .rounded-header {
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
-}
+
+    .signin .rounded-header {
+        border-top-left-radius: 7px;
+        border-top-right-radius: 7px;
+    }
 
 .logo-icon {
     display: inline-flex;
@@ -38,7 +41,7 @@
 }
 
 .menu-icon .md-icon {
-    fill:white;
+    fill: white;
 }
 
 .webapp {
@@ -234,12 +237,13 @@
 
 
 .tabsdemoStaticTabs {
-  /*
+    /*
  * Animation styles
- */ }
-/*
+ */
+}
+    /*
 */
-/*
+    /*
   .tabsdemoStaticTabs #tab1-content {
     background-color: #3F51B5; }
   .tabsdemoStaticTabs #tab2-content {
@@ -247,16 +251,16 @@
   .tabsdemoStaticTabs #tab3-content {
     background-color: #00796B; }
     */
-  .tabsdemoStaticTabs .tabpanel-container {
-    display: block;
-    position: relative;
-    background: white;
-    border: 0px solid black;
-    min-height: 500px;
-    opacity: 1;
-    overflow: hidden; 
+    .tabsdemoStaticTabs .tabpanel-container {
+        display: block;
+        position: relative;
+        background: white;
+        border: 0px solid black;
+        min-height: 500px;
+        opacity: 1;
+        overflow: hidden;
+    }
 
-  }
     .tabsdemoStaticTabs [role="tabpanel"] {
         /*color: white;*/
         width: 100%;
@@ -266,49 +270,72 @@
         transition: all cubic-bezier(.77,.06,.99,.59) 5.5s;
         transition: all ease-out 0.3s;
     }
-   .tabsdemoStaticTabs [role="tabpanel"].ng-enter {
-    top: -150px; 
-    opacity: 1;
-  }
-  .tabsdemoStaticTabs [role="tabpanel"].ng-enter.ng-enter-active {
-    top: 0;
-    opacity: 1;
-  }
-  .tabsdemoStaticTabs [role="tabpanel"].ng-leave.ng-leave-active  {
-    top: 0px; 
-    opacity: 0;
-  }
-  .tabsdemoStaticTabs [role="tabpanel"].ng-leave {
-    top: 100;
-    z-index: 100; 
-    opacity: 0;
-  }
-  .tabsdemoStaticTabs .tabpanel-container [role="tabpanel"] {
-    padding: 20px; }
-  .tabsdemoStaticTabs .after-tabs-area {
-    padding: 25px; }
-  .tabsdemoStaticTabs .after-tabs-area > span {
-    margin-top: 25px;
-    padding-right: 15px;
-    vertical-align: middle;
-    line-height: 30px;
-    height: 35px; }
-  .tabsdemoStaticTabs .after-tabs-area > md-checkbox {
-    margin-top: 26px;
-    margin-left: 0px; }
-  .tabsdemoStaticTabs .md-header {
-    /*background-color: #1976D2; */
-  }
-  .tabsdemoStaticTabs md-tab {
-    color: #90caf9 !important; }
-  .tabsdemoStaticTabs md-tab.active, .tabsdemoStaticTabs md-tab:focus {
-    color: white !important; }
-  .tabsdemoStaticTabs md-tab[disabled] {
-    opacity: 0.5; }
-  .tabsdemoStaticTabs .md-header .md-ripple {
-    border-color: #FFFF8D !important; }
-  .tabsdemoStaticTabs md-tabs-ink-bar {
-    background-color: #FFFF8D !important; }
+
+        .tabsdemoStaticTabs [role="tabpanel"].ng-enter {
+            top: -150px;
+            opacity: 1;
+        }
+
+            .tabsdemoStaticTabs [role="tabpanel"].ng-enter.ng-enter-active {
+                top: 0;
+                opacity: 1;
+            }
+
+        .tabsdemoStaticTabs [role="tabpanel"].ng-leave.ng-leave-active {
+            top: 0px;
+            opacity: 0;
+        }
+
+        .tabsdemoStaticTabs [role="tabpanel"].ng-leave {
+            top: 100;
+            z-index: 100;
+            opacity: 0;
+        }
+
+    .tabsdemoStaticTabs .tabpanel-container [role="tabpanel"] {
+        padding: 20px;
+    }
+
+    .tabsdemoStaticTabs .after-tabs-area {
+        padding: 25px;
+    }
+
+        .tabsdemoStaticTabs .after-tabs-area > span {
+            margin-top: 25px;
+            padding-right: 15px;
+            vertical-align: middle;
+            line-height: 30px;
+            height: 35px;
+        }
+
+        .tabsdemoStaticTabs .after-tabs-area > md-checkbox {
+            margin-top: 26px;
+            margin-left: 0px;
+        }
+
+    .tabsdemoStaticTabs .md-header {
+        /*background-color: #1976D2; */
+    }
+
+    .tabsdemoStaticTabs md-tab {
+        color: #90caf9 !important;
+    }
+
+        .tabsdemoStaticTabs md-tab.active, .tabsdemoStaticTabs md-tab:focus {
+            color: white !important;
+        }
+
+        .tabsdemoStaticTabs md-tab[disabled] {
+            opacity: 0.5;
+        }
+
+    .tabsdemoStaticTabs .md-header .md-ripple {
+        border-color: #FFFF8D !important;
+    }
+
+    .tabsdemoStaticTabs md-tabs-ink-bar {
+        background-color: #FFFF8D !important;
+    }
 
 .profile {
     font-size: 14px;
@@ -316,13 +343,15 @@
     align-items: flex-end;
     text-align: right;
     min-width: 150px;
-}  
+}
+
 .profile-img {
     max-width: 25px;
     max-height: 25px;
     margin-right: 5px;
     border-radius: 13px;
 }
+
 .profile .name {
     height: 25px;
     vertical-align: sub;
@@ -330,15 +359,19 @@
     text-transform: none;
     font-family: Roboto-Regular;
 }
+
 .home-content {
     overflow: hidden;
 }
+
 .logo {
     min-width: 111px;
 }
+
 .profile.register-link {
     max-width: 120px;
 }
+
 .truncate {
     display: inline-block;
     max-width: 200px;
@@ -363,42 +396,191 @@
     opacity: 0;
 }
 
-/*
+    /*
  Keep in mind that you want to combine both CSS
  classes together to avoid any CSS-specificity
  conflicts
 */
-.reveal-animation.ng-enter.ng-enter-active {
- /* The animation code itself */
- opacity: 1;
-}
+    .reveal-animation.ng-enter.ng-enter-active {
+        /* The animation code itself */
+        opacity: 1;
+    }
 
 
-    
-        /*
+
+/*
          * ngRepeat triggers three animation events: enter, leave and move.
          */
-        .repeat-animation.ng-enter,
-        .repeat-animation.ng-leave,
-        .repeat-animation.ng-move {
-            -webkit-transition: 1.5s linear all;
-            transition: 1.5s linear all;
+.repeat-animation.ng-enter,
+.repeat-animation.ng-leave,
+.repeat-animation.ng-move {
+    -webkit-transition: 1.5s linear all;
+    transition: 1.5s linear all;
+}
+
+/* ending enter and move styling
+           (this is what the element will animate from */
+.repeat-animation.ng-enter,
+.repeat-animation.ng-move {
+    opacity: 0;
+}
+
+    /* ending enter and move styling
+           (this is what the element will animate towards */
+    .repeat-animation.ng-enter.ng-enter-active,
+    .repeat-animation.ng-move.ng-move-active {
+        opacity: 1;
+    }
+
+/* starting leave animation */
+.repeat-animation.ng-leave {
+    opacity: 1;
+}
+
+    /* ending leave animation */
+    .repeat-animation.ng-leave.ng-leave-active {
+        opacity: 0;
+    }
+
+
+
+
+
+
+
+.color-palette {
+    color: rgba(255,255,255,0.87);
+    font-size: 14px;
+    font-weight: 500;
+    padding-bottom: 60px;
+}
+
+@media screen and (max-width: 1240px) {
+    .color-palette {
+        padding-right: 0;
+        width: 760px;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .color-palette {
+        padding-right: 0;
+        width: 360px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .color-palette {
+        padding-right: 0;
+        width: 100%;
+    }
+}
+
+.color-palette .module-end {
+    clear: left;
+}
+
+.color-palette .light {
+    color: rgba(255,255,255,0.87);
+}
+
+.color-palette .light-strong {
+    color: #fff;
+}
+
+.color-palette .dark {
+    color: rgba(0,0,0,0.87);
+}
+
+.color-palette .dark-when-small {
+    color: rgba(0,0,0,0.87);
+}
+
+.color-palette .dark-strong {
+    color: #000;
+}
+
+.color-palette .color-group, 
+.color-palette .color-group:last-child {
+    float: left;
+    margin-left: 40px;
+    padding-bottom: 40px;
+    width: 250px;
+    display: block;
+}
+    .color-palette .color-group ul {
+        padding-left: 0;
+    }
+
+    .color-palette .color-group:after, .color-palette .color-group:last-child:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+@media screen and (max-width: 760px) {
+    .color-palette .color-group, .color-palette .color-group:last-child {
+        margin-left: 0;
+        padding-right: 0;
+        width: 360px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .color-palette .color-group, .color-palette .color-group:last-child {
+        padding-right: 0;
+        padding-left: 0;
+        width: 100%;
+    }
+}
+
+.color-palette .color-group:first-child, .color-palette .color-group:nth-of-type(3n+1), .color-palette .color-group:last-child:first-child, .color-palette .color-group:last-child:nth-of-type(3n+1) {
+    clear: left;
+    margin-left: 0;
+}
+
+@media screen and (max-width: 1240px) {
+    .color-palette .color-group:first-child, .color-palette .color-group:nth-of-type(3n+1), .color-palette .color-group:last-child:first-child, .color-palette .color-group:last-child:nth-of-type(3n+1) {
+        clear: none;
+        margin-left: 40px;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .color-palette .color-group:first-child, .color-palette .color-group:nth-of-type(3n+1), .color-palette .color-group:last-child:first-child, .color-palette .color-group:last-child:nth-of-type(3n+1) {
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 1240px) {
+    .color-palette .color-group:nth-of-type(2n+1), .color-palette .color-group:last-child:nth-of-type(2n+1) {
+        clear: left;
+        margin-left: 0;
+    }
+}
+
+.color-palette .color-group li, .color-palette .color-group:last-child li {
+    list-style-type: none;
+}
+
+    .color-palette .color-group li.color, .color-palette .color-group:last-child li.color {
+        padding: 15px;
+    }
+
+        .color-palette .color-group li.color .hex, .color-palette .color-group:last-child li.color .hex {
+            float: right;
+            text-transform: uppercase;
         }
 
-        /* ending enter and move styling
-           (this is what the element will animate from */
-        .repeat-animation.ng-enter,
-        .repeat-animation.ng-move { opacity:0; }
+    .color-palette .color-group li.main-color, .color-palette .color-group:last-child li.main-color {
+        border-bottom: 4px solid #f9f9f9;
+    }
 
-        /* ending enter and move styling
-           (this is what the element will animate towards */
-        .repeat-animation.ng-enter.ng-enter-active,
-        .repeat-animation.ng-move.ng-move-active { opacity:1; }
+        .color-palette .color-group li.main-color .name, .color-palette .color-group:last-child li.main-color .name {
+            display: block;
+            margin-bottom: 60px;
+        }
 
-        /* starting leave animation */
-        .repeat-animation.ng-leave { opacity:1; }
-
-        /* ending leave animation */
-        .repeat-animation.ng-leave.ng-leave-active { opacity:0; }
-
-    
+    .color-palette .color-group li.divide, .color-palette .color-group:last-child li.divide {
+        border-top: 4px solid #f9f9f9;
+    }
