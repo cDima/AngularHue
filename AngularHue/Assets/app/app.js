@@ -1,16 +1,23 @@
-﻿var app = angular.module('app', [
+﻿/*
+ * Dmitry Sadakov sadakov.com 
+ * All Rights Reserved
+ */ 
+
+var app = angular.module('app', [
     'ngRoute',
     'ngCookies',
     'ngMaterial',
-    'home',
+    'home', 
     'signIn',
     'register',
     'ngProgress',
     'LocalStorageModule',
     'todoManager',
     'HueHub',
-    'HueWeb'
+    'HueWeb' 
 ]);
+
+
 
 var serviceBase = 'http://localhost:33651/';
 app.constant('ngAuthSettings', {

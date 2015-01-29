@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<bundle xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://vswebessentials.com/schemas/v1/bundle.xsd">
+  <settings>
+    <!--Determines if the bundle file should be automatically optimized after creation/update.-->
+    <minify>false</minify>
+    <!--Determine whether to generate/re-generate this bundle on building the solution.-->
+    <runOnBuild>true</runOnBuild>
+    <!--Specifies a custom subfolder to save files to. By default, compiled output will be placed in the same folder and nested under the original file.-->
+    <outputDirectory />
+  </settings>
+  <!--The order of the <file> elements determines the order of the files in the bundle.-->
+  <files>
+    <file>../Assets/app/app.js</file>
+    <file>../Assets/app/controllers/homeCtrl.js</file>
+    <file>../Assets/app/controllers/todoManagerCtrl.js</file>
+    <file>../Assets/app/controllers/registerCtrl.js</file>
+    <file>../Assets/app/controllers/signInCtrl.js</file>
+    <file>../Assets/app/services/authService.js</file>
+    <file>../Assets/app/services/hueHub.js</file>
+    <file>../Assets/app/services/hueWeb.js</file>
+    <file>../bower_components/bootstrap/dist/js/bootstrap.min.js</file>
+    <file>../Assets/scripts/hue/bootstrap-slider.min.js</file>
+    <file>../Assets/scripts/hue/color-thief.min.js</file>
+    <file>../Assets/scripts/config.js</file>
+    <file>../Assets/scripts/config.features.js</file>
+    <file>../Assets/scripts/hue/ga.js</file>
+    <file>../Assets/scripts/hue/uservoice.js</file>
+    <file>../Assets/scripts/hue/colors.js</file>
+    <file>../Assets/scripts/hue/palettes.js</file>
+    <file>../Assets/scripts/hue/sequence.js</file>
+    <file>../Assets/scripts/hue/ambient.js</file>
+    <file>../Assets/scripts/hue/scenes.js</file>
+    <file>../Assets/scripts/hue/sceneCommander.js</file>
+    <file>../Assets/scripts/hue/hue.js</file>
+    <file>../Assets/scripts/hue/colorUtil.js</file>
+    <file>../Assets/scripts/hue/hueCommander.js</file>
+    <file>../Assets/scripts/webhue.js</file>
+  </files>
+</bundle>

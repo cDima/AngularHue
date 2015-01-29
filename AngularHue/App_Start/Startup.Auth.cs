@@ -53,7 +53,7 @@ namespace AngularHue
             app.UseWebApi(config);
 
             // SignalR config:
-            app.MapSignalR();
+            app.MapSignalR();// app.MapSignalR("/signalr", new Microsoft.AspNet.SignalR.HubConfiguration());
 
             // db update
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<DBContext, Migrations.Configuration>());

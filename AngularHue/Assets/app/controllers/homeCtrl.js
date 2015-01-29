@@ -12,7 +12,7 @@
             secondLabel: "Item Two"
         };
 
-        authService.fillAuthData();
+        authService.fillAuthData(); 
         $scope.auth = authService.authentication;
 
         $scope.alert = function () {
@@ -38,19 +38,19 @@
         // hue hub
         $scope.hub = HueHub;
     }])
-    .controller('LeftCtrl', function ($scope, $timeout, $mdSidenav, $log) {
+    .controller('LeftCtrl', ['$scope', '$timeout', '$mdSidenav', '$log', function ($scope, $timeout, $mdSidenav, $log) {
         $scope.close = function () {
             $mdSidenav('left').close()
                               .then(function () {
                                   $log.debug("close LEFT is done");
                               });
         };
-    })
-    .controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log) {
+    }])
+    .controller('RightCtrl', ['$scope','$timeout', '$mdSidenav', '$log', function ($scope, $timeout, $mdSidenav, $log) {
         $scope.close = function () {
             $mdSidenav('right').close()
                                 .then(function () {
                                     $log.debug("close RIGHT is done");
                                 });
         };
-    });
+    }]);

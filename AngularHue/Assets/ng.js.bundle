@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<bundle xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://vswebessentials.com/schemas/v1/bundle.xsd">
+  <settings>
+    <!--Determines if the bundle file should be automatically optimized after creation/update.-->
+    <minify>true</minify>
+    <!--Determine whether to generate/re-generate this bundle on building the solution.-->
+    <runOnBuild>false</runOnBuild>
+    <!--Specifies a custom subfolder to save files to. By default, compiled output will be placed in the same folder and nested under the original file.-->
+    <outputDirectory />
+  </settings>
+  <!--The order of the <file> elements determines the order of the files in the bundle.-->
+  <files>
+    <file>../bower_components/modernizr/modernizr.js</file>
+    <file>../bower_components/jquery/dist/jquery.js</file>
+    <file>../bower_components/signalr/jquery.signalR.js</file>
+    <file>../bower_components/angular/angular.js</file>
+    <file>../bower_components/angular-route/angular-route.js</file>
+    <file>../bower_components/angular-animate/angular-animate.js</file>
+    <file>../bower_components/angular-aria/angular-aria.js</file>
+    <file>../bower_components/angular-cookies/angular-cookies.js</file>
+    <file>../bower_components/hammerjs/hammer.js</file>
+    <file>../bower_components/angular-local-storage/dist/angular-local-storage.js</file>
+    <file>../bower_components/angular-material/angular-material.js</file>
+    <file>../bower_components/ngprogress/build/ngProgress.js</file>
+    <file>../bower_components/angular-signalr-hub/signalr-hub.js</file>
+
+    <file>../bower_components/d3/d3.js</file>
+    <file>../bower_components/trianglify/trianglify.js</file>
+    
+  </files>
+</bundle>

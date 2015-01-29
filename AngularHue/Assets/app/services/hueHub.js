@@ -8,6 +8,7 @@ app.factory('HueHub', ['$rootScope', 'Hub', 'authService',
 
         //declaring the hub connection
         var hub = new Hub('HueHub', {
+            rootPath: globals.signalrUrl,
 
             //client side methods
             listeners: {

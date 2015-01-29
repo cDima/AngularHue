@@ -1,8 +1,22 @@
-﻿body {
+﻿/* fill */
+body, html {
+    height:100%;
+}
+#outerbox {
+    width:100%;
+    position:absolute; /* to place it somewhere on the screen */
+    top:130px;         /* free space at top */
+    bottom:0px;        /* makes it lock to the bottom */
+}
+#innerbox {
+    width:100%;
+    position:absolute;              
+    min-height:100% !important; /* browser fill */
+    height:auto;                /*content fill */
+}
+
+body {
     background: #375369 no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
     background-size: cover;
     transition: padding 1.5s ease;
 }
@@ -282,12 +296,12 @@
             }
 
         .tabsdemoStaticTabs [role="tabpanel"].ng-leave.ng-leave-active {
-            top: 0px;
+            top: 0;
             opacity: 0;
         }
 
         .tabsdemoStaticTabs [role="tabpanel"].ng-leave {
-            top: 100;
+            top: 100px;
             z-index: 100;
             opacity: 0;
         }

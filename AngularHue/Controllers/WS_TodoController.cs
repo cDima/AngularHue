@@ -82,7 +82,7 @@ namespace AngularHue.Controllers
                 return Request.CreateResponse<List<string>>(HttpStatusCode.BadRequest, errors);
             }
 
-            var user = db.Users.Where(u => u.firstName == "Test").FirstOrDefault();
+            //var user = db.Users.Where(u => u.firstName == "Test").FirstOrDefault();
         }
 
         [HttpPost]

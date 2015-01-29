@@ -5,45 +5,29 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
 
+    <!-- fucking microsoft bundling doesn't support css fonts relative paths -->
+    <link href="bower_components/roboto-fontface/roboto-fontface.css" rel="stylesheet">
+    <link href="bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
     @Styles.Render("~/bundles/material-themes")
     @Styles.Render("~/bundles/styles")
 
 </head>
 <body class="tabsdemoStaticTabs">
-    @RenderBody()
 
-    <!-- scripts -->
-    @Scripts.Render("~/bundles/jq")
-    @Scripts.Render("~/bundles/ng")
-    <!-- hue -->
-    @Scripts.Render("~/bundles/hue")
-    <!-- app -->
-    @Scripts.Render("~/bundles/app")
+    <div id="outerbox">
+        <div id="innerbox">
 
-    @Scripts.Render("~/bundles/trianglify")
-    @*@Scripts.Render("~/bundles/misc")*@
+            @RenderBody()
+            
+            <script type="text/javascript">
+                var globals = { signalrUrl: '@Url.Content("~/signalr")' };
+            </script>
 
-
-    <script>
-
-        var t = new Trianglify({
-            //x_gradient: Trianglify.colorbrewer.PuOr[9],
-            noiseIntensity: 0,
-            cellsize: 90
-        });
-        var pattern = t.generate(document.body.clientWidth, document.body.clientHeight);
-        document.body.setAttribute('style', 'background-image: ' + pattern.dataUrl);
-
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date(); a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-        ga('create', '@System.Configuration.ConfigurationManager.AppSettings["ga"].ToString()', 'auto');
-        ga('send', 'pageview');
-
-    </script>
+            <script src="~/Assets/ng.js"></script>
+            <!-- hue -->
+            <script src="~/Assets/hue.js"></script>
+        </div>
+    </div>
 </body>
 </html>
