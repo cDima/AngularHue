@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+     <script src="js/libs/jquery-1.11.0.js"></script>
+     <script>
+
+$.ajax
+({
+  type: "GET",
+  url: "http://192.168.0.1/Status/wifi_assoc.asp",
+  dataType: 'jsonp',
+  async: false,
+  username: 'admin',
+  password: '',
+  data: '{ "comment" }',
+  success: function (data){
+    console.log("works ok")
+
+  }
+});
+     </script>
+    </div>
+  </body>
+</html>

@@ -10,6 +10,7 @@ namespace AngularHue.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            // update-database --force is better; //AutomaticMigrationDataLossAllowed = true;
             ContextKey = "AngularHue.Models.DBContext";
         }
 
