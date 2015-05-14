@@ -55,23 +55,23 @@ app.config(['$provide', '$routeProvider', '$httpProvider',
 
     // Routes
     $routeProvider.when('/home', {
-        templateUrl: 'hue/App/Home',
+        templateUrl: 'App/Home',
         controller: 'homeCtrl'
     });
     $routeProvider.when('/hueweb', {
-        templateUrl: 'hue/App/Home',
+        templateUrl: 'App/Home',
         controller: 'homeCtrl'
     });
     $routeProvider.when('/register', {
-        templateUrl: 'hue/App/Register',
+        templateUrl: 'App/Register',
         controller: 'registerCtrl'
     });
     $routeProvider.when('/signin/:message?', {
-        templateUrl: 'hue/App/SignIn',
+        templateUrl: 'App/SignIn',
         controller: 'signInCtrl'
     });
     $routeProvider.when('/todomanager', {
-        templateUrl: 'hue/App/TodoManager',
+        templateUrl: 'App/TodoManager',
         controller: 'todoManagerCtrl'
     });
     

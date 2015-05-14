@@ -15,14 +15,17 @@ namespace AngularHue
         {
             AreaRegistration.RegisterAllAreas();
 
-            //GlobalConfiguration.Configure(Startup.Configuration);
+            // register /api calls:
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+
+            // register /ahue or /
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             GlobalConfiguration.Configuration.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
-            //GlobalFilters.Filters.Add(new HandleErrorAttribute());
+            GlobalFilters.Filters.Add(new HandleErrorAttribute());
         }
     }
 }

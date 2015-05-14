@@ -15,7 +15,7 @@ namespace AngularHue
 
             routes.MapRoute(
                 name: "Default",
-                url: "ahue/{controller}/{action}/{id}",
+                url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Main", action = "Index", id = UrlParameter.Optional }
             );
 
