@@ -13,9 +13,9 @@ using System.Threading.Tasks;
 namespace AngularHue.Controllers
 {
 
-    public class HueController : ApiController
+    public class db : ApiController
     {
-        private DBContext db = new DBContext();
+        private DBContext context = new DBContext();
         private ApplicationUserManager _userManager;
         public ApplicationUserManager UserManager
         {
@@ -29,18 +29,12 @@ namespace AngularHue.Controllers
             }
         }
 
-        [HttpGet]
-        public IQueryable<HueConfig> GetItems99()
-        {
-            return db.configs.OrderByDescending(d => d.AddedOn).Take(100);
-        }
-
         [HttpPost]
-        public HttpResponseMessage PostHueConfig([FromBody]string input)
+        public HttpResponseMessage log([FromBody]string input)
         {
             try
             {
-                db.configs.Add(new HueConfig()
+                context.configs.Add(new HueConfig()
                 {
                         AddedOn = DateTime.UtcNow,
                         FromIP = System.Web.HttpContext.Current.Request.UserHostAddress,

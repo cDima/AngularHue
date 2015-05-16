@@ -15,10 +15,31 @@ body, html {
     height:auto;                /*content fill */
 }
 
-body {
+html, body {
     background: #375369 no-repeat center center fixed;
+    background-color: #1c2b36;
     background-size: cover;
     transition: padding 1.5s ease;
+}
+
+/* radius */
+md-content.home-content.md-default-theme {
+    border-radius: 3px;
+}
+md-content.home-content > md-toolbar.md-default-theme {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+.md-sidenav-left, 
+md-sidenav,
+md-sidenav.md-sidenav-left md-toolbar.md-default-theme {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 0;
+}
+
+md-sidenav.md-sidenav-right.md-whiteframe-z2.ng-isolate-scope {
+    border-top-left-radius: 0;
+    border-top-right-radius: 3px;
 }
 
 @media screen and (min-width: 1200px) {

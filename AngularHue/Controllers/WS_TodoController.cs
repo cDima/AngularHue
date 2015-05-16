@@ -16,8 +16,7 @@ namespace AngularHue.Controllers
     public class WS_TodoController : ApiController
     {
         private DBContext db = new DBContext();
-        //HttpContext httpContext = new HttpContext(new Http
-
+        
         public RoleManager<IdentityRole> RoleManager { get; private set; }
 
         private ApplicationUserManager _userManager;

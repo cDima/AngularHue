@@ -232,11 +232,10 @@
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\WS_AccountController.cs" />
-    <Compile Include="Controllers\HueController.cs" />
     <Compile Include="Controllers\WS_TodoController.cs" />
-    <Compile Include="Entities\Client.cs" />
-    <Compile Include="Entities\HueContext.cs" />
-    <Compile Include="Entities\RefreshToken.cs" />
+    <Compile Include="Auth\Entities\Client.cs" />
+    <Compile Include="Auth\Entities\HueContext.cs" />
+    <Compile Include="Auth\Entities\RefreshToken.cs" />
     <Compile Include="Admin\GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
