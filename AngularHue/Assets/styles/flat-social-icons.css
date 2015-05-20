@@ -17,6 +17,7 @@
     transition: all ease 0.2s;
     width: 250px;
     text-transform: none;
+    border-bottom-right-radius: 3px;
 }
     .social-login img {
         width: 57px;

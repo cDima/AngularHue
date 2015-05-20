@@ -27,6 +27,8 @@ angular.module('HueWeb', [])
     .factory('HueSearchColorlovers',
     function () {
 
+        return;
+
         /* search */
         var clPalettes = null;
         var skip = 0;
@@ -116,6 +118,8 @@ angular.module('HueWeb', [])
     .factory('HueColorPicker', 
     function () {
 
+        return;
+
         // color wheel:
 
         // create canvas and context objects
@@ -175,6 +179,8 @@ angular.module('HueWeb', [])
 .controller('HueWeb', ['$rootScope',
     function ($rootScope) {
 
+        return;
+
         function log(text) {
             console.log(text);
         }
@@ -219,6 +225,7 @@ angular.module('HueWeb', [])
         var ambieye = null;
 
         log('loading as no chrome, running standalone');
+        if (window.hue !== undefined) return;
         window.hue = hue(window.jQuery, window.colors);
         window.hue.findBridge();
         sceneCmd = sceneCommander(window.jQuery, window.hue);

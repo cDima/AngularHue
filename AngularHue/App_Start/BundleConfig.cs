@@ -13,29 +13,30 @@ namespace AngularHue
             //    .Include("~/bower_components/roboto-fontface/roboto-fontface.css"));
             //bundles.Add(new StyleBundle("~/bower_components/components-font-awesome/css")
             //    .Include("~/bower_components/components-font-awesome/css", new CssRewriteUrlTransform()));
-            bundles.Add(new StyleBundle("~/bundles/styles")
-                .Include(
-                     "~/bower_components/angular-material/angular-material.css",
-                     "~/bower_components/angular-material/themes/cyan-theme.css",
-                     "~/bower_components/ngprogress/ngProgress.css",
-                     "~/bower_components/material-design-icons/sprites/css-sprite/sprite-navigation-white.css",
-                     "~/bower_components/material-design-icons/sprites/css-sprite/sprite-action-white.css",
-                     "~/Assets/styles/flat-social-icons.css",
 
-                     "~/Assets/styles/bootstrap-slider.min.css",
-                     "~/Assets/styles/slider.css",
-                     "~/Assets/styles/popup.css",
-                     "~/Assets/styles/switch.css",
+            //bundles.Add(new StyleBundle("~/bundles/styles")
+            //    .Include(
+            //         "~/bower_components/angular-material/angular-material.css",
+            //         //"~/bower_components/angular-material/themes/cyan-theme.css",
+            //         "~/bower_components/ngprogress/ngProgress.css",
+            //         "~/bower_components/material-design-icons/sprites/css-sprite/sprite-navigation-white.css",
+            //         "~/bower_components/material-design-icons/sprites/css-sprite/sprite-action-white.css",
+            //         "~/Assets/styles/flat-social-icons.css",
 
-                     "~/Assets/styles/styles.css"
-                     ));
+            //         "~/Assets/styles/bootstrap-slider.min.css",
+            //         "~/Assets/styles/slider.css",
+            //         "~/Assets/styles/popup.css",
+            //         "~/Assets/styles/switch.css",
 
-            bundles.Add(new StyleBundle("~/bundles/material-themes").IncludeDirectory(
-                     "~/bower_components/angular-material/themes", "*.css"));
+            //         "~/Assets/styles/styles.css"
+            //         ));
 
-            bundles.Add(new ScriptBundle("~/bundles/webcomponents").Include(
-                        "~/bower_components/webcomponentsjs/webcomponents.js"
-                        ));
+            //bundles.Add(new StyleBundle("~/bundles/material-themes").IncludeDirectory(
+            //         "~/bower_components/angular-material/modules/css", "*.css"));
+
+            //bundles.Add(new ScriptBundle("~/bundles/webcomponents").Include(
+            //            "~/bower_components/webcomponentsjs/webcomponents.js"
+            //            ));
             
             //bundles.Add(new ScriptBundle("~/bundles/app").IncludeDirectory("~/Assets/app", "*.js", true));
             //bundles.Add(new ScriptBundle("~/misc").IncludeDirectory("~/Assets/misc", "*.js", true));

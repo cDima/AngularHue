@@ -1,6 +1,8 @@
 ﻿/* fill */
 body, html {
     height:100%;
+    font-family: 'Roboto', sans-serif;
+    /*font-weight: 100;*/
 }
 #outerbox {
     width:100%;
@@ -15,31 +17,59 @@ body, html {
     height:auto;                /*content fill */
 }
 
+[ui-view=home] {
+    padding-top: 130px;
+}
+
 html, body {
-    background: #375369 no-repeat center center fixed;
+    /*background: #375369 no-repeat center center fixed;
     background-color: #1c2b36;
+        */
+    background-color: #FFFFFF;
+    background-color: #f2f2f2;
     background-size: cover;
     transition: padding 1.5s ease;
 }
 
 /* radius */
 md-content.home-content.md-default-theme {
-    border-radius: 3px;
+    border-radius: 6px;
+    background-clip: padding-box;
 }
 md-content.home-content > md-toolbar.md-default-theme {
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
 }
 .md-sidenav-left, 
 md-sidenav,
 md-sidenav.md-sidenav-left md-toolbar.md-default-theme {
-    border-top-left-radius: 3px;
+    border-top-left-radius: 6px;
     border-top-right-radius: 0;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 0;
 }
 
 md-sidenav.md-sidenav-right.md-whiteframe-z2.ng-isolate-scope {
     border-top-left-radius: 0;
-    border-top-right-radius: 3px;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 6px;
+}
+ng-switch {
+  border-radius: 6px solid transparent;
+}
+    ng-switch > md-content.md-default-theme {
+        border-radius: 6px solid transparent;
+    }
+
+/* background fix */
+md-content.md-default-theme {
+    /*background-color: inherit;
+    border-radius: 4px solid transparent;*/
+}
+md-content.md-default-theme md-tabs {
+    background-color: white;
+
 }
 
 @media screen and (min-width: 1200px) {
@@ -82,6 +112,7 @@ md-sidenav.md-sidenav-right.md-whiteframe-z2.ng-isolate-scope {
 .webapp {
     max-width: 1000px;
     margin: auto;
+    margin-bottom: 100px;
 }
 
 
@@ -388,7 +419,7 @@ md-sidenav.md-sidenav-right.md-whiteframe-z2.ng-isolate-scope {
 }
 
 .profile .name {
-    height: 25px;
+    height: 35px;
     vertical-align: sub;
     display: inline-block;
     text-transform: none;

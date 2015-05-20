@@ -13,7 +13,7 @@ namespace AngularHue.Providers
         public override Task Authenticated(FacebookAuthenticatedContext context)
         {
             context.Identity.AddClaim(new Claim("ExternalAccessToken", context.AccessToken));
-            context.Identity.AddClaim(new Claim("image", "https://graph.facebook.com/" + context.Id + "?fields=picture.type(small)"));
+            context.Identity.AddClaim(new Claim("image", "https://graph.facebook.com/v2.3/" + context.Id + "/picture"));
             context.Identity.AddClaim(new Claim("profile", context.Link));
             context.Identity.AddClaim(new Claim("name", context.Name));
             return Task.FromResult<object>(null);
