@@ -298,6 +298,14 @@
     <Content Include="Assets\app\controllers\todoManagerCtrl.js" />
     <Content Include="Assets\img\colorbox-100.png" />
     <Content Include="Assets\img\colorwheel-100.png" />
+    <Content Include="Assets\img\demo\p1.jpg" />
+    <Content Include="Assets\img\demo\p2.jpg" />
+    <Content Include="Assets\img\demo\p3.jpg" />
+    <Content Include="Assets\img\demo\p4.jpg" />
+    <Content Include="Assets\img\demo\p5.jpg" />
+    <Content Include="Assets\img\demo\p6.jpg" />
+    <Content Include="Assets\img\demo\p7.jpg" />
+    <Content Include="Assets\img\demo\p8.jpg" />
     <Content Include="Assets\img\facebook-long.png" />
     <Content Include="Assets\img\google-long.png" />
     <Content Include="Assets\img\lightswitch.grey.png" />
@@ -380,6 +388,10 @@
     <Content Include="Assets\styles\switch.min.css">
       <DependentUpon>switch.css</DependentUpon>
     </Content>
+    <Content Include="bower_components\angular-hamburger-toggle\dist\angular-hamburger-toggle.css" />
+    <Content Include="bower_components\angular-hamburger-toggle\dist\angular-hamburger-toggle.js" />
+    <Content Include="bower_components\angular-hamburger-toggle\dist\angular-hamburger-toggle.min.css" />
+    <Content Include="bower_components\angular-hamburger-toggle\dist\angular-hamburger-toggle.min.js" />
     <Content Include="bower_components\angular-local-storage\.gitattributes" />
     <Content Include="bower_components\angular-local-storage\.gitignore" />
     <Content Include="bower_components\angular-local-storage\demo\demo-app.js" />
@@ -1056,6 +1068,9 @@
     <Content Include="Assets\styles.css.bundle">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="bower_components\angular-hamburger-toggle\.bower.json" />
+    <Content Include="bower_components\angular-hamburger-toggle\bower.json" />
+    <Content Include="bower_components\angular-hamburger-toggle\LICENSE" />
     <None Include="Properties\PublishProfiles\ambieye %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\ambieye.pubxml" />
     <Content Include="Scripts\angular-signalr-hub.js" />

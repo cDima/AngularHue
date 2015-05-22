@@ -101,7 +101,7 @@ md-content.md-default-theme md-tabs {
     }
 
 .logo-icon {
-    display: inline-flex;
+    /*display: inline-flex;*/
     vertical-align: text-bottom;
 }
 
@@ -430,12 +430,34 @@ md-content.md-default-theme md-tabs {
     overflow: hidden;
 }
 
-.logo {
+.logo,
+ .md-toolbar-tools h3.logo   {
     min-width: 111px;
+    font-weight: 100;
+}
+
+.item .opacity:hover {
+  background-color: rgba(0,0,0,0.75);
+}
+.item-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.hover-container {
+    position: relative;
 }
 
 .profile.register-link {
     max-width: 120px;
+}
+.sub-title {
+  position: absolute;
+  top: 65%;
+  padding: 15px;
+  color: white;
 }
 
 .truncate {

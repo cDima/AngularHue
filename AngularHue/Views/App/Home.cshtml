@@ -12,20 +12,26 @@
     <md-content flex class="home-content">
         <md-toolbar md-scroll-shrink>
             <div class="md-toolbar-tools">
-                <md-button class="menu-icon" aria-label="Profile">
-                    @*hide-gt-sm=""*@
-                    @*<md-icon icon="bower_components/material-design-icons/navigation/svg/production/ic_menu_24px.svg">
-                        </md-icon>*@
-                    <div ng-click="toggleLeft()">
-                        <div class="icon-navigation-white icon-navigation-white-ic_menu_white_24dp"></div>
-                    </div>
+                @*<md-button class="menu-icon" aria-label="Profile" ng-click="toggleLeft()">
+                    <div class="icon-navigation-white icon-navigation-white-ic_menu_white_24dp"></div>
+                </md-button>*@
+                <md-button ng-click="toggleLeft()" aria-label="Menu" style="min-width: 0;">
+                    <ng-md-icon icon="menu"></ng-md-icon>
+                    <div class="icon-navigation-white icon-navigation-white-ic_menu_white_24dp"></div>
                 </md-button>
-                <div>
-                    <h3 class="logo">
-                        HueKit
-                    </h3>
-                </div>
-                <div flex></div>
+                @*
+                    <button class="md-button md-default-theme" ng-transclude="" ng-click="toggleSidenav('left')" hide-gt-md="" aria-label="Menu" tabindex="0">
+                        <ng-md-icon icon="menu" class="ng-scope"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 18h18v-2H3v2z"></path><path d="M3 13h18v-2H3v2z"></path><path d="M3 6v2h18V6H3z"></path></svg></ng-md-icon>
+                        <div class="md-ripple-container"></div>
+                    </button>
+                *@
+                <h3 class="logo">
+                    HueKit
+                </h3>
+                <span flex></span>
+
+                <md-switch ng-model="data.cb1" aria-label="Switch 1"></md-switch>
+
                 <div flex class="profile" ng-hide="!auth.isAuth">
                     <md-button ng-click="toggleRight()">
                         <div class="profile-link">
@@ -70,7 +76,6 @@
                 Help
             </md-tab>
         </md-tabs>
-        <md-switch ng-model="data.cb1" aria-label="Switch 1"></md-switch>
         <!-- left column -->
         <md-sidenav class="md-sidenav-left md-whiteframe-z2" ng-hide md-component-id="left">
             <md-toolbar class="md-toolbar-tools-bottom" md-sidenav-focus>

@@ -46488,7 +46488,7 @@ angularLocalStorage.provider('localStorageService', function() {
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v0.9.4-master-7aff8ff
+ * v0.9.4-master-9c6eb27
  */
 (function( window, angular, undefined ){
 "use strict";
@@ -47103,8 +47103,7 @@ angular.module('material.core')
           position: 'fixed',
           width: '100%',
           overflowY: 'scroll',
-          transform: 'translateY(-' + scrollOffset + 'px)',
-          '-webkit-transform': 'translateY(-' + scrollOffset + 'px)'
+          top: -scrollOffset + 'px'
         });
 
         return function restoreScroll() {
@@ -48044,6 +48043,7 @@ mdCompilerService.$inject = ["$q", "$http", "$injector", "$compile", "$controlle
 
   /**
    * Attach Gestures: hook document and check shouldHijack clicks
+   * @ngInject
    */
   function attachToDocument( $mdGesture, $$MdGestureHandler ) {
 
@@ -49538,7 +49538,6 @@ angular.module('material.core.theming.palette', [])
     'contrastStrongLightColors': '300 400'
   },
   'grey': {
-    '0': '#ffffff',
     '50': '#fafafa',
     '100': '#f5f5f5',
     '200': '#eeeeee',
@@ -53516,7 +53515,7 @@ function mdListItemDirective($mdAria, $mdConstant, $timeout) {
         }
         if (hasProxiedElement) {
           wrapIn('div');
-        } else {
+        } else if (!tEl[0].querySelector('md-button')) {
           tEl.addClass('md-no-proxy');
         }
       } else {
@@ -53540,7 +53539,6 @@ function mdListItemDirective($mdAria, $mdConstant, $timeout) {
         }
       }
 
-
       function wrapIn(type) {
         var container;
         if (type == 'div') {
@@ -53549,13 +53547,13 @@ function mdListItemDirective($mdAria, $mdConstant, $timeout) {
           tEl.addClass('md-proxy-focus');
         } else {
           container = angular.element('<md-button class="md-no-style"><div class="md-list-item-inner"></div></md-button>');
-          container[0].setAttribute('ng-click', tEl[0].getAttribute('ng-click'));
-          tEl[0].removeAttribute('ng-click');
-
-          if (tEl[0].getAttribute('aria-label')) {
-            container[0].setAttribute('aria-label', tEl[0].getAttribute('aria-label'));
-            tEl[0].removeAttribute('aria-label');
-          }
+          var copiedAttrs = ['ng-click', 'aria-label', 'ng-disabled'];
+          angular.forEach(copiedAttrs, function(attr) {
+            if (tEl[0].hasAttribute(attr)) {
+              container[0].setAttribute(attr, tEl[0].getAttribute(attr));
+              tEl[0].removeAttribute(attr);
+            }
+          });
           container.children().eq(0).append(tEl.contents());
         }
 
@@ -54316,7 +54314,9 @@ function SelectDirective($mdSelect, $mdUtil, $mdTheming, $mdAria, $interpolate, 
     }
     labelEl.append('<span class="md-select-icon" aria-hidden="true"></span>');
     labelEl.addClass('md-select-label');
-    labelEl.attr('id', 'select_label_' + $mdUtil.nextUid());
+    if (!labelEl[0].hasAttribute('id')) {
+      labelEl.attr('id', 'select_label_' + $mdUtil.nextUid());
+    }
 
     // There's got to be an md-content inside. If there's not one, let's add it.
     if (!element.find('md-content').length) {
@@ -54460,22 +54460,25 @@ function SelectDirective($mdSelect, $mdUtil, $mdTheming, $mdAria, $interpolate, 
           element.off('click', openSelect);
           element.off('keydown', handleKeypress);
         } else {
-          element.attr({'tabindex': attr.tabindex, 'aria-disabled':'false'});
+          element.attr({'tabindex': attr.tabindex, 'aria-disabled': 'false'});
           element.on('click', openSelect);
           element.on('keydown', handleKeypress);
         }
       });
       if (!attr.disabled && !attr.ngDisabled) {
-        element.attr({'tabindex': attr.tabindex, 'aria-disabled':'false'});
+        element.attr({'tabindex': attr.tabindex, 'aria-disabled': 'false'});
         element.on('click', openSelect);
         element.on('keydown', handleKeypress);
       }
 
-      element.attr({
-        'role': 'combobox',
-        'id': 'select_' + $mdUtil.nextUid(),
+      var ariaAttrs = {
+        role: 'combobox',
         'aria-expanded': 'false'
-      });
+      };
+      if (!element[0].hasAttribute('id')) {
+        ariaAttrs.id = 'select_' + $mdUtil.nextUid();
+      }
+      element.attr(ariaAttrs);
 
       scope.$on('$destroy', function() {
         if (isOpen) {
@@ -54691,7 +54694,7 @@ function SelectMenuDirective($parse, $mdUtil, $mdTheming) {
       } else {
         self.hashGetter = function getHashValue(value) {
           if (angular.isObject(value)) {
-            return '$$object_' + (value.$$mdSelectId || (value.$$mdSelectId = ++selectNextId));
+            return 'object_' + (value.$$mdSelectId || (value.$$mdSelectId = ++selectNextId));
           }
           return value;
         };
@@ -54848,11 +54851,15 @@ function OptionDirective($mdInkRipple, $mdUtil) {
     });
 
     function configureAria() {
-      element.attr({
+      var ariaAttrs = {
         'role': 'option',
-        'aria-selected': 'false',
-        'id': 'select_option_'+ $mdUtil.nextUid()
-      });
+        'aria-selected': 'false'
+      };
+
+      if (!element[0].hasAttribute('id')) {
+        ariaAttrs.id = 'select_option_' + $mdUtil.nextUid();
+      }
+      element.attr(ariaAttrs);
     }
   }
 
@@ -57999,7 +58006,8 @@ angular
 
 function MdHighlightCtrl ($scope, $element, $interpolate) {
   var term = $element.attr('md-highlight-text'),
-      text = $interpolate($element.text())($scope),
+      unsafeText = $interpolate($element.html())($scope),
+      text = angular.element('<div>').text(unsafeText).html(),
       flags = $element.attr('md-highlight-flags') || '',
       watcher = $scope.$watch(term, function (term) {
         var regex = getRegExp(term, flags),
@@ -58785,7 +58793,7 @@ MdChipsCtrl.prototype.hasFocus = function () {
         // name with '$', Angular won't write it into the DOM. The cloned
         // element propagates to the link function via the attrs argument,
         // where various contained-elements can be consumed.
-        attrs['$mdUserTemplate'] = element.clone();
+        var content = attrs['$mdUserTemplate'] = element.clone();
         return MD_CHIPS_TEMPLATE;
       },
       require: ['mdChips'],
@@ -59210,11 +59218,13 @@ angular
     .directive('mdTabItem', MdTabItem);
 
 function MdTabItem () {
-  return { require: '^?mdTabs', link: link };
-  function link (scope, element, attr, ctrl) {
-    if (!ctrl) return;
-    ctrl.attachRipple(scope, element);
-  }
+  return {
+    require: '^?mdTabs',
+    link: function link (scope, element, attr, ctrl) {
+      if (!ctrl) return;
+      ctrl.attachRipple(scope, element);
+    }
+  };
 }
 
 })();
@@ -59247,6 +59257,9 @@ angular
     .module('material.components.tabs')
     .controller('MdTabsController', MdTabsController);
 
+/**
+ * @ngInject
+ */
 function MdTabsController ($scope, $element, $window, $timeout, $mdConstant, $mdInkRipple,
                            $mdUtil, $animate) {
   var ctrl     = this,
@@ -59708,7 +59721,7 @@ function MdTabs ($mdTheming, $mdUtil, $compile) {
       stretchTabs:   '@?mdStretchTabs'
     },
     template: function (element, attr) {
-      attr.$mdTabsTemplate = element.html();
+      var content = attr["$mdTabsTemplate"] = element.html();
       return '\
         <md-tabs-wrapper ng-class="{ \'md-stretch-tabs\': $mdTabsCtrl.shouldStretchTabs() }">\
           <md-tab-data></md-tab-data>\
