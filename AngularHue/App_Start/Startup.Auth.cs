@@ -161,6 +161,8 @@ namespace AngularHue
 
             app.UseGoogleAuthentication(googleAuthOptions);
 
+            app.Use(googleAuthOptions);
+
         }
     }
 }
